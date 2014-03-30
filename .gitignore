@@ -1,0 +1,9 @@
+.backup
+ranger/*
+.DS_Store
+gtk-2.0
+
+!ranger/rc.conf
+!ranger/rifle.conf
+!ranger/scope.sh
+!ranger/commands.py
