@@ -1,7 +1,7 @@
 import os
 
 home = os.path.expanduser("~")
-path = os.path.join(home, '.config')
+path = os.path.join(home, '.dotfiles')
 
 home_links = [
     ('vim', '.vimrc'),

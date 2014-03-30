@@ -12,18 +12,14 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
 Bundle 'edkolev/tmuxline.vim'
-Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'gmarik/vundle'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'mhinz/vim-signify'
-" Bundle 'nvie/vim-flake8'
 Bundle 'python.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scrooloose/syntastic'
 Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-surround'
 
 filetype plugin indent on     " required
