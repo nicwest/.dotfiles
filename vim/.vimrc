@@ -9,7 +9,6 @@ call vundle#rc()
 Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'gitignore'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
 Bundle 'edkolev/tmuxline.vim'
@@ -23,6 +22,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'terryma/vim-expand-region'
 Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 
 filetype plugin indent on     " required
@@ -34,6 +34,10 @@ set background=dark
 colorscheme molokai
 
 let g:molokai_original = 1
+
+"LEADER
+let mapleader = "\<Space>"
+
 " line numbers
 set number
 
@@ -134,6 +138,19 @@ vnoremap <tab> %
 "colon remap
 nnoremap ; :
 
+" open files
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>i :CtrlPBuffer<CR>
+
+"So Wonely....
+nnoremap <leader>1 :only<CR>
+
+" write files
+nnoremap <Leader>w :w<CR>
+
+" buffer swap
+nnoremap <leader><Tab> <C-^>
+
 "strip trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -144,7 +161,7 @@ nnoremap <leader>v V`]
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 "open vertical split
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>s <C-w>v<C-w>l
 
 "move around windows
 nnoremap <C-h> <C-w>h
@@ -158,13 +175,12 @@ au BufRead * normal zR
 "auto set clipboard
 set clipboard=unnamed
 
-" buffer swap
-nnoremap <leader>` <C-^>
-
 "Ctrl+P settings
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
 
+
 " expand region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
