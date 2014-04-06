@@ -18,6 +18,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'python.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -94,3 +95,53 @@ endif
 
 autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
 let g:syntastic_python_checkers = ['flake8']
+
+" syntastic reset and recheck
+function! ResetandCheck()
+    SyntasticReset
+    SyntasticCheck
+endfunc
+
+nnoremap <Leader>c :call ResetandCheck()<CR>
+
+" search sanitity
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+nnoremap <tab> %
+vnoremap <tab> %
+
+"colon remap
+nnoremap ; :
+
+"strip trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+"reselect pasted text
+nnoremap <leader>v V`]
+
+"open ~/.vimrc in split
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+"open vertical split
+nnoremap <leader>w <C-w>v<C-w>l
+
+"move around windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"auto unfold
+au BufRead * normal zR
+
+"auto set clipboard
+set clipboard=unnamed
+
+

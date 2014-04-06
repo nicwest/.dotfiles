@@ -69,7 +69,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-export EDITOR=/usr/bin/vim
+export EDITOR=/usr/local/bin/vim
 
 #DISABLE SCROLL LOCK (http://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator)
 stty -ixon
