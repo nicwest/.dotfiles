@@ -8,6 +8,7 @@ call vundle#rc()
 
 Bundle 'FuzzyFinder'
 Bundle 'L9'
+Bundle 'gitignore'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
@@ -17,8 +18,9 @@ Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'python.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
+Bundle 'terryma/vim-expand-region'
 Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -46,7 +48,7 @@ function! NumberToggle()
     endif
 endfunc
 
-nnoremap <C-l> :call NumberToggle()<cr>
+nnoremap <Leader>l  :call NumberToggle()<cr>
 
 " indents and auto-indent
 set smartindent
@@ -57,6 +59,18 @@ set expandtab
 
 " 80 char ruler
 set colorcolumn=80
+
+" rational vim
+set backspace=indent,eol,start
+set scrolloff=3
+set showmode
+set hidden
+set encoding=utf-8
+set wildmenu
+set wildmode=longest:full,full
+set visualbell
+set ttyfast
+set undofile
 
 " ruler
 " set ruler
@@ -144,4 +158,13 @@ au BufRead * normal zR
 "auto set clipboard
 set clipboard=unnamed
 
+" buffer swap
+nnoremap <leader>` <C-^>
 
+"Ctrl+P settings
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
+
+" expand region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
