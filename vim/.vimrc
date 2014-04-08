@@ -174,7 +174,7 @@ nnoremap <C-l> <C-w>l
 au BufRead * normal zR
 
 "auto set clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 "Ctrl+P settings
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
