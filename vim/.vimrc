@@ -19,6 +19,7 @@ Bundle 'python.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
+Bundle 'ervandew/supertab'
 Bundle 'terryma/vim-expand-region'
 Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-fugitive'
@@ -31,9 +32,9 @@ filetype plugin indent on     " required
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme molokai
+colorscheme molokai 
 
-let g:molokai_original = 1
+"let g:molokai_original = 1
 
 "LEADER
 let mapleader = "\<Space>"
