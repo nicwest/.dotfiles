@@ -15,7 +15,7 @@ Bundle 'edkolev/tmuxline.vim'
 Bundle 'gmarik/vundle'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'python.vim'
+"Bundle 'python.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
@@ -121,7 +121,7 @@ function! ResetandCheck()
     SyntasticCheck
 endfunc
 
-nnoremap <Leader>c :call ResetandCheck()<CR>
+nnoremap <Leader>n :call ResetandCheck()<CR>
 
 " search sanitity
 nnoremap / /\v
