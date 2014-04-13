@@ -163,7 +163,11 @@ nnoremap <tab> %
 vnoremap <tab> %
 
 "colon remap
-nnoremap ; :
+"nnoremap ; :
+
+"macro remap
+nnoremap , @
+nnoremap ,, @@
 
 " open files
 nnoremap <Leader>o :CtrlP<CR>
@@ -206,6 +210,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+"escape keys!
+imap <s-Space> <ESC>
+vmap <c-Space> <ESC>
+
 "norm-insert toggler
 nmap <F13> ^
 imap <F13> <ESC>
@@ -221,11 +229,18 @@ nmap <s-F14> :bnext<CR>
 imap <F34> <C-y>,
 "let g:user_emmet_leader_key='<F34>'
 
+nnoremap L $
+nnoremap H ^
+vmap L $
+vmap H ^
+
 "auto unfold
 au BufRead * normal zR
 
 "auto set clipboard
-set clipboard=unnamedplus
+if os != 'win'
+    set clipboard=unnamedplus
+endif
 
 "Ctrl+P settings
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
