@@ -8,6 +8,7 @@ home_links = [
     ('tmux', '.tmux.conf'),
     ('tig', '.tigrc'),
     ('zsh', '.zshrc'),
+    ('X', '.Xmodmap'),
 ]
 
 
@@ -34,7 +35,7 @@ def backup_existing_configs(link):
 def make_link(link):
     fn, tp, op = get_paths(link)
     if not os.path.exists(tp):
-        print "Creating symlink for '%s'..."
+        print "Creating symlink for '%s'..." % fn
         os.symlink(op, tp)
 
 

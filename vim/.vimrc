@@ -8,31 +8,57 @@ call vundle#rc()
 
 Bundle 'FuzzyFinder'
 Bundle 'L9'
-Bundle 'gitignore'
+Bundle 'scratch.vim'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'bling/vim-airline'
+Bundle 'itchyny/lightline.vim'
 Bundle 'edkolev/tmuxline.vim'
+Bundle 'ervandew/supertab'
+Bundle 'gitignore'
 Bundle 'gmarik/vundle'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
-"Bundle 'python.vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
-Bundle 'ervandew/supertab'
 Bundle 'terryma/vim-expand-region'
-Bundle 'tomasr/molokai'
+Bundle 'w0ng/vim-hybrid'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 
 filetype plugin indent on     " required
 
+" Get running OS
+let os = ""
+if has("win32")
+  let os="win"
+else
+  if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin"
+      let os="mac"
+    else
+      let os="unix"
+    endif
+  endif
+endif
+
+if os=="unix"
+    set <F13>=[25~
+    set <F14>=[26~
+    set <s-F13>=[25;2~ 
+    set <s-F14>=[26;2~
+    set <F33>=[25;5~
+    set <F34>=[26;5~
+endif
 " solarised
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme molokai 
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
+"colorscheme molokai 
 
 "let g:molokai_original = 1
 
@@ -132,7 +158,7 @@ set gdefault
 set incsearch
 set showmatch
 set hlsearch
-nnoremap <leader><space> :noh<cr>
+nnoremap <leader><BS> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
@@ -148,6 +174,8 @@ nnoremap <leader>1 :only<CR>
 
 " write files
 nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>wq :wq<CR>
 
 " buffer swap
 nnoremap <leader><Tab> <C-^>
@@ -163,12 +191,35 @@ nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 "open vertical split
 nnoremap <leader>s <C-w>v<C-w>l
+nnoremap <leader>8 :vertical resize 80<CR>
+nnoremap <leader>9 :vertical resize 90<CR>
+nnoremap <leader>0 :vertical resize 100<CR>
+
+"folding and things
+nnoremap <leader><leader> za
+nnoremap <leader>r zr
+nnoremap <leader>m zm
 
 "move around windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+"norm-insert toggler
+nmap <F13> ^
+imap <F13> <ESC>
+vmap <F13> <ESC>
+
+nmap <F14> $
+imap <F14> <ESC>
+vmap <F14> <ESC>
+
+nmap <s-F13> :bNext<CR>
+nmap <s-F14> :bnext<CR>
+
+imap <F34> <C-y>,
+"let g:user_emmet_leader_key='<F34>'
 
 "auto unfold
 au BufRead * normal zR
@@ -179,7 +230,6 @@ set clipboard=unnamedplus
 "Ctrl+P settings
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_use_caching = 0
-
 
 " expand region
 vmap v <Plug>(expand_region_expand)
