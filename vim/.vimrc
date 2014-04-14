@@ -52,15 +52,13 @@ if os=="unix"
     set <F33>=[25;5~
     set <F34>=[26;5~
 endif
-" solarised
+
+" color scheme
 syntax enable
 set t_Co=256
 set background=dark
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
-"colorscheme molokai 
-
-"let g:molokai_original = 1
 
 "LEADER
 let mapleader = "\<Space>"
@@ -211,23 +209,31 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "escape keys!
-imap <s-Space> <ESC>
-vmap <c-Space> <ESC>
+if os == "win"
+    imap <s-Space> <ESC>
+    vmap <c-Space> <ESC>
+endif
 
 "norm-insert toggler
-nmap <F13> ^
-imap <F13> <ESC>
-vmap <F13> <ESC>
+"find something useful to bind to these useful buttons!
+nmap <F13> <nop>
+imap <F13> <nop>
+vmap <F13> <nop>
 
-nmap <F14> $
-imap <F14> <ESC>
-vmap <F14> <ESC>
+nmap <F14> <nop>
+imap <F14> <nop>
+vmap <F14> <nop>
 
-nmap <s-F13> :bNext<CR>
-nmap <s-F14> :bnext<CR>
+nmap <s-F13> <nop>
+nmap <s-F14> <nop>
 
-imap <F34> <C-y>,
-"let g:user_emmet_leader_key='<F34>'
+imap <F34> <nop>
+
+"buffer paging
+nnoremap <c-Left> :bNext<CR>
+nnoremap <c-Right> :bnext<CR>
+
+let g:user_emmet_leader_key='<F34>'
 
 nnoremap L $
 nnoremap H ^
@@ -235,7 +241,7 @@ vmap L $
 vmap H ^
 
 "auto unfold
-au BufRead * normal zR
+"au BufRead * normal zR
 
 "auto set clipboard
 if os != 'win'
