@@ -15,6 +15,7 @@ Bundle 'edkolev/tmuxline.vim'
 Bundle 'ervandew/supertab'
 Bundle 'gitignore'
 Bundle 'gmarik/vundle'
+Bundle 'Raimondi/delimitMate'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/emmet-vim'
@@ -36,7 +37,7 @@ if has("win32")
 else
   if has("unix")
     let s:uname = system("uname")
-    if s:uname == "Darwin"
+    if s:uname == "Darwin\n"
       let os="mac"
     else
       let os="unix"
@@ -91,7 +92,7 @@ set colorcolumn=80
 
 " rational vim
 set backspace=indent,eol,start
-set scrolloff=3
+set scrolloff=15
 set showmode
 set hidden
 set encoding=utf-8
@@ -190,6 +191,7 @@ nnoremap <leader>v V`]
 
 "open ~/.vimrc in split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>er :source $MYVIMRC<CR>
 
 "open vertical split
 nnoremap <leader>s <C-w>v<C-w>l
@@ -214,6 +216,16 @@ if os == "win"
     vmap <c-Space> <ESC>
 endif
 
+
+"fugutive binds:
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gb :Gblame<CR>
+
+"scratch binds
+nnoremap <leader>n :Scratch
+
 "norm-insert toggler
 "find something useful to bind to these useful buttons!
 nmap <F13> <nop>
@@ -233,7 +245,7 @@ imap <F34> <nop>
 nnoremap <c-Left> :bNext<CR>
 nnoremap <c-Right> :bnext<CR>
 
-let g:user_emmet_leader_key='<F34>'
+let g:user_emmet_leader_key='<c-y>'
 
 nnoremap L $
 nnoremap H ^
@@ -244,8 +256,12 @@ vmap H ^
 "au BufRead * normal zR
 
 "auto set clipboard
-if os != 'win'
+if os == 'unix'
     set clipboard=unnamedplus
+endif
+
+if os == 'mac'
+    set clipboard=unnamed
 endif
 
 "Ctrl+P settings
