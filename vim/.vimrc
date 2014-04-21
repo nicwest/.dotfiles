@@ -8,25 +8,26 @@ call vundle#rc()
 
 Bundle 'FuzzyFinder'
 Bundle 'L9'
-Bundle 'scratch.vim'
+Bundle 'Raimondi/delimitMate'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'itchyny/lightline.vim'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'ervandew/supertab'
 Bundle 'gitignore'
 Bundle 'gmarik/vundle'
-Bundle 'Raimondi/delimitMate'
+Bundle 'itchyny/lightline.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
+Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'terryma/vim-expand-region'
-Bundle 'w0ng/vim-hybrid'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'w0ng/vim-hybrid'
 
 filetype plugin indent on     " required
 
@@ -169,16 +170,20 @@ nnoremap , @
 nnoremap ,, @@
 
 " open files
-nnoremap <Leader>o :CtrlP<CR>
-nnoremap <Leader>i :CtrlPBuffer<CR>
+nnoremap <Leader>fo :CtrlP<CR>
+nnoremap <Leader>fi :CtrlPBuffer<CR>
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_extensions = ['funky']
 
 "So Wonely....
 nnoremap <leader>1 :only<CR>
 
 " write files
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>wq :wq<CR>
+"nnoremap <Leader>q :q<CR>
+"nnoremap <Leader>wq :wq<CR>
 
 " buffer swap
 nnoremap <leader><Tab> <C-^>
@@ -217,6 +222,7 @@ if os == "win"
 endif
 
 
+
 "fugutive binds:
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
@@ -224,15 +230,15 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
 
 "scratch binds
-nnoremap <leader>n :Scratch
+nnoremap <leader>N :Scratch
 
 "norm-insert toggler
 "find something useful to bind to these useful buttons!
-nmap <F13> <nop>
+nmap <F13> :bNext<CR> 
 imap <F13> <nop>
 vmap <F13> <nop>
 
-nmap <F14> <nop>
+nmap <F14> :bnext<CR>
 imap <F14> <nop>
 vmap <F14> <nop>
 
@@ -242,15 +248,15 @@ nmap <s-F14> <nop>
 imap <F34> <nop>
 
 "buffer paging
-nnoremap <c-Left> :bNext<CR>
-nnoremap <c-Right> :bnext<CR>
+nnoremap [b :bNext<CR>
+nnoremap ]b :bnext<CR>
 
 let g:user_emmet_leader_key='<c-y>'
 
-nnoremap L $
-nnoremap H ^
-vmap L $
-vmap H ^
+nnoremap } $
+nnoremap { ^
+vmap } $
+vmap { ^
 
 "auto unfold
 "au BufRead * normal zR
