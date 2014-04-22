@@ -21,6 +21,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'terryma/vim-expand-region'
@@ -310,3 +311,7 @@ function! PythonGetLabel()
 endfunction
 
 nnoremap gL :call PythonGetLabel()<CR>
+
+"NerdTree :D
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore = ['\.pyc$']
