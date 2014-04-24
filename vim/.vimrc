@@ -15,6 +15,7 @@ Bundle 'ervandew/supertab'
 Bundle 'gitignore'
 Bundle 'gmarik/vundle'
 Bundle 'itchyny/lightline.vim'
+Bundle 'jaxbot/github-issues.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/emmet-vim'
@@ -141,6 +142,7 @@ endif
 
 autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501,E225,E226,E265'
 
 " syntastic reset and recheck
 function! ResetandCheck()
@@ -231,7 +233,7 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
 
 "scratch binds
-nnoremap <leader>N :Scratch
+nnoremap <leader>N :Scratch<CR>
 
 "norm-insert toggler
 "find something useful to bind to these useful buttons!
