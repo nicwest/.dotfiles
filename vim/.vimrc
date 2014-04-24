@@ -319,4 +319,4 @@ map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
 "githubissues config
-source ~/.dotfiles/vim/githubissues
+source ~/.dotfiles/vim/githubissues.vim
