@@ -317,3 +317,6 @@ nnoremap gL :call PythonGetLabel()<CR>
 "NerdTree :D
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
+
+"githubissues config
+source ~/.dotfiles/vim/githubissues
