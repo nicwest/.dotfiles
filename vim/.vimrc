@@ -17,6 +17,7 @@ Bundle 'gmarik/vundle'
 Bundle 'itchyny/lightline.vim'
 Bundle 'jaxbot/github-issues.vim'
 Bundle 'jpythonfold.vim'
+Bundle 'junegunn/goyo.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -317,6 +318,9 @@ nnoremap gL :call PythonGetLabel()<CR>
 "NerdTree :D
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
+
+"Goyo!
+nnoremap <Leader>g :Goyo<CR>
 
 "githubissues config
 source ~/.dotfiles/vim/githubissues.vim
