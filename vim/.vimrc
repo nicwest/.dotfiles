@@ -27,6 +27,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'terryma/vim-expand-region'
+Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
@@ -83,6 +84,9 @@ function! NumberToggle()
 endfunc
 
 nnoremap <Leader>l  :call NumberToggle()<cr>
+
+"cursorline
+set cursorline
 
 " indents and auto-indent
 set smartindent
@@ -162,6 +166,10 @@ vnoremap <tab> %
 nnoremap , @
 nnoremap ,, @@
 
+"space
+nnoremap <CR> o<C-c>
+nnoremap <Leader><CR> O<C-c>
+
 " open files
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <C-f> :CtrlPBuffer<CR>
@@ -175,8 +183,6 @@ nnoremap <leader>1 :only<CR>
 
 " write files
 nnoremap <Leader>w :w<CR>
-"nnoremap <Leader>q :q<CR>
-"nnoremap <Leader>wq :wq<CR>
 
 " buffer swap
 nnoremap <leader><Tab> <C-^>
@@ -204,14 +210,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-"escape keys!
-if os == "win"
-    imap <s-Space> <ESC>
-    vmap <c-Space> <ESC>
-endif
-
-
 
 "fugutive binds:
 nnoremap <leader>gs :Gstatus<CR>
@@ -241,7 +239,7 @@ imap <F34> <nop>
 nnoremap [b :bNext<CR>
 nnoremap ]b :bnext<CR>
 
-let g:user_emmet_leader_key='<c-y>'
+let g:user_emmet_leader_key='<c-x>'
 
 nnoremap } $
 nnoremap { ^
