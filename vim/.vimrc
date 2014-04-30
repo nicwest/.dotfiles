@@ -69,7 +69,7 @@ colorscheme hybrid
 let mapleader = "\<Space>"
 
 " line numbers
-set number
+set relativenumber
 
 " toggle relative line numbers
 function! NumberToggle()
@@ -120,9 +120,6 @@ noremap Q <nop>
 "status line
 set laststatus=2
 
-" airline
-let g:airline_powerline_fonts = 1
-
 set backup                        " enable backups
 set noswapfile                    " it's 2013, Vim.
 
@@ -145,14 +142,6 @@ autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E225,E226,E265'
 
-" syntastic reset and recheck
-function! ResetandCheck()
-    SyntasticReset
-    SyntasticCheck
-endfunc
-
-nnoremap <Leader>n :call ResetandCheck()<CR>
-
 " search sanitity
 nnoremap / /\v
 vnoremap / /\v
@@ -174,8 +163,8 @@ nnoremap , @
 nnoremap ,, @@
 
 " open files
-nnoremap <Leader>fo :CtrlP<CR>
-nnoremap <Leader>fi :CtrlPBuffer<CR>
+nnoremap <C-p> :CtrlP<CR>
+nnoremap <C-f> :CtrlPBuffer<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
@@ -192,9 +181,6 @@ nnoremap <Leader>w :w<CR>
 " buffer swap
 nnoremap <leader><Tab> <C-^>
 
-"strip trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
 "reselect pasted text
 nnoremap <leader>v V`]
 
@@ -203,7 +189,7 @@ nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>er :source $MYVIMRC<CR>
 
 "open vertical split
-nnoremap <leader>s <C-w>v<C-w>l
+nnoremap <leader>S <C-w>v<C-w>l
 nnoremap <leader>8 :vertical resize 80<CR>
 nnoremap <leader>9 :vertical resize 90<CR>
 nnoremap <leader>0 :vertical resize 100<CR>
@@ -234,7 +220,7 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
 
 "scratch binds
-nnoremap <leader>N :Scratch<CR>
+nnoremap <leader>n :Scratch<CR>
 
 "norm-insert toggler
 "find something useful to bind to these useful buttons!
@@ -274,9 +260,17 @@ if os == 'mac'
     set clipboard=unnamed
 endif
 
-"Ctrl+P settings
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_use_caching = 0
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
+endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " expand region
 vmap v <Plug>(expand_region_expand)
@@ -321,6 +315,15 @@ let NERDTreeIgnore = ['\.pyc$']
 
 "Goyo!
 nnoremap <Leader>g :Goyo<CR>
+
+"spelling stuf
+map <leader>so :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>ss z=
 
 "githubissues config
 source ~/.dotfiles/vim/githubissues.vim
