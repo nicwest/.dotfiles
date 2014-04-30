@@ -326,4 +326,5 @@ map <leader>sa zg
 map <leader>ss z=
 
 "githubissues config
+imap <c-I> <c-x><c-o>
 source ~/.dotfiles/vim/githubissues.vim
