@@ -142,7 +142,7 @@ if !isdirectory(expand(&directory))
    call mkdir(expand(&directory), "p")
 endif
 
-autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
+"autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E225,E226,E265'
 
@@ -167,7 +167,6 @@ nnoremap , @
 nnoremap ,, @@
 
 "space
-nnoremap <CR> o<C-c>
 nnoremap <Leader><CR> O<C-c>
 
 " open files
@@ -219,6 +218,11 @@ nnoremap <leader>gb :Gblame<CR>
 
 "scratch binds
 nnoremap <leader>n :Scratch<CR>
+
+"quick fix
+nnoremap <silent> <leader>qo :copen<CR>
+nnoremap <silent> <leader>qq :cclose<CR>
+nnoremap <silent> <leader>qc :cex []<CR>
 
 "norm-insert toggler
 "find something useful to bind to these useful buttons!
@@ -316,8 +320,6 @@ nnoremap <Leader>g :Goyo<CR>
 
 "spelling stuf
 map <leader>so :setlocal spell!<cr>
-
-" Shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
