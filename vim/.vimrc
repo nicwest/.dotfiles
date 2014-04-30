@@ -21,6 +21,7 @@ Bundle 'jpythonfold.vim'
 Bundle 'junegunn/goyo.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/emmet-vim'
+Bundle 'rking/ag.vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
