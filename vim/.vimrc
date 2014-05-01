@@ -10,6 +10,7 @@ Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'Raimondi/delimitMate'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'ervandew/supertab'
 Bundle 'gitignore'
@@ -142,7 +143,7 @@ if !isdirectory(expand(&directory))
    call mkdir(expand(&directory), "p")
 endif
 
-"autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
+autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E225,E226,E265'
 
