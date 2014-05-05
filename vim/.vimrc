@@ -9,12 +9,14 @@ call vundle#rc()
 Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'Raimondi/delimitMate'
+Bundle 'SirVer/ultisnips'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'ervandew/supertab'
 Bundle 'gitignore'
 Bundle 'gmarik/vundle'
+Bundle 'honza/vim-snippets'
 Bundle 'itchyny/lightline.vim'
 Bundle 'jaxbot/github-issues.vim'
 Bundle 'jpythonfold.vim'
@@ -22,7 +24,6 @@ Bundle 'junegunn/goyo.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
@@ -191,6 +192,9 @@ nnoremap <leader><Tab> <C-^>
 "reselect pasted text
 nnoremap <leader>v V`]
 
+"put under
+nnoremap <silent> <leader>pu :pu<CR>
+
 "open ~/.vimrc in split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>er :source $MYVIMRC<CR>
@@ -245,12 +249,12 @@ imap <F34> <nop>
 nnoremap [b :bNext<CR>
 nnoremap ]b :bnext<CR>
 
-let g:user_emmet_leader_key='<c-x>'
+let g:user_emmet_leader_key='<c-y>'
 
-nnoremap } $
-nnoremap { ^
-vmap } $
-vmap { ^
+nnoremap L $
+nnoremap H ^
+vmap L $
+vmap H ^
 
 "auto unfold
 "au BufRead * normal zR
@@ -272,9 +276,6 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
 endif
-
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " expand region
 vmap v <Plug>(expand_region_expand)
@@ -318,7 +319,7 @@ map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
 "Goyo!
-nnoremap <Leader>g :Goyo<CR>
+nnoremap <Leader>gy :Goyo<CR>
 
 "spelling stuf
 map <leader>so :setlocal spell!<cr>
@@ -327,6 +328,26 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>ss z=
 
+"ultisnip
+let g:UltiSnipsExpandTrigger="<F2>"
+let g:UltiSnipsJumpForwardTrigger="<F2>"
+let g:UltiSnipsJumpBackwardTrigger="<F3>"
+nnoremap <Leader>dj :set ft=python.django<CR>
+nnoremap <Leader>py :set ft=python<CR>
+
+"super tab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>"]
+autocmd FileType * 
+      \if &omnifunc != '' |
+      \call SuperTabChain(&omnifunc, "<c-p>") |
+      \call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+      \endif
+
 "githubissues config
 imap <c-I> <c-x><c-o>
 source ~/.dotfiles/vim/githubissues.vim
+
+noh
