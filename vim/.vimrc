@@ -22,6 +22,7 @@ Bundle 'jaxbot/github-issues.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'junegunn/goyo.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'lord-garbage/tslime.vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
 Bundle 'scratch.vim'
@@ -74,14 +75,13 @@ let mapleader = "\<Space>"
 
 " line numbers
 set relativenumber
+set number
 
 " toggle relative line numbers
 function! NumberToggle()
     if(&relativenumber == 1)
         set norelativenumber
-        set number
     else
-        set nonumber
         set relativenumber
     endif
 endfunc
@@ -312,7 +312,16 @@ function! PythonGetLabel()
     call setpos('.', originalline)
 endfunction
 
+function! DjangoTestThis()
+    call PythonGetLabel()
+    let @" = './manage.py test ' . @0
+    if exists("*SendToTmux")
+        call SendToTmux(@")
+    endif
+endfunction
+
 nnoremap gL :call PythonGetLabel()<CR>
+nnoremap <leader>tl :call DjangoTestThis()<CR>
 
 "NerdTree :D
 map <C-n> :NERDTreeToggle<CR>
@@ -345,6 +354,11 @@ autocmd FileType *
       \call SuperTabChain(&omnifunc, "<c-p>") |
       \call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
       \endif
+
+"tmux slime
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
 
 "githubissues config
 imap <c-I> <c-x><c-o>
