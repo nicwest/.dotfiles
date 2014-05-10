@@ -6,16 +6,16 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Bundle 'gmarik/vundle'
+
 Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'edkolev/tmuxline.vim'
-Bundle 'ervandew/supertab'
 Bundle 'gitignore'
-Bundle 'gmarik/vundle'
 Bundle 'honza/vim-snippets'
 Bundle 'itchyny/lightline.vim'
 Bundle 'jaxbot/github-issues.vim'
@@ -31,7 +31,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'terryma/vim-expand-region'
-Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
@@ -113,9 +112,6 @@ set visualbell
 set ttyfast
 set undofile
 
-" ruler
-" set ruler
-
 " mouse?
 set mouse=a
 map <ScrollWheelUp> 3<C-Y>
@@ -161,9 +157,6 @@ set hlsearch
 nnoremap <leader><BS> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-
-"colon remap
-"nnoremap ; :
 
 "macro remap
 nnoremap , @
@@ -256,9 +249,6 @@ nnoremap H ^
 vmap L $
 vmap H ^
 
-"auto unfold
-"au BufRead * normal zR
-
 "auto set clipboard
 if os == 'unix'
     set clipboard=unnamedplus
@@ -317,6 +307,7 @@ function! DjangoTestThis()
     let @" = './manage.py test ' . @0
     if exists("*SendToTmux")
         call SendToTmux(@")
+        call ExecuteKeys('')
     endif
 endfunction
 
@@ -338,30 +329,30 @@ map <leader>sa zg
 map <leader>ss z=
 
 "ultisnip
-let g:UltiSnipsExpandTrigger="<F2>"
-let g:UltiSnipsJumpForwardTrigger="<F2>"
-let g:UltiSnipsJumpBackwardTrigger="<F3>"
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
 
-"super tab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-p>"
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>"]
-autocmd FileType * 
-      \if &omnifunc != '' |
-      \call SuperTabChain(&omnifunc, "<c-p>") |
-      \call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
-      \endif
+"YouCompleteMe
+" auto load files if vim detects they have been changed outside of Vim
+set autoread
+
+" YCM settings
+let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 "tmux slime
-vmap <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c><C-c> <Plug>ExecuteKeysCc
+nmap <C-c><C-x> <Plug>ExecuteKeysCl
 nmap <C-c>r <Plug>SetTmuxVars
 
 "githubissues config
-imap <c-I> <c-x><c-o>
+"imap <c-I> <c-x><c-o>
 source ~/.dotfiles/vim/githubissues.vim
 
 noh
