@@ -111,6 +111,7 @@ set wildmode=longest:full,full
 set visualbell
 set ttyfast
 set undofile
+set showbreak=↪
 
 " mouse?
 set mouse=a
