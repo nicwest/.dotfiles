@@ -169,7 +169,9 @@ nnoremap <Leader><CR> O<C-c>
 " open files
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <C-f> :CtrlPBuffer<CR>
+nnoremap <C-f> :CtrlPBuffer<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>ff :CtrlPBookmarkDir<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_extensions = ['funky']

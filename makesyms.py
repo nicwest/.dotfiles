@@ -9,6 +9,7 @@ home_links = [
     ('tig', '.tigrc'),
     ('zsh', '.zshrc'),
     ('X', '.Xmodmap'),
+    ('mutt', '.muttrc'),
 ]
 
 
