@@ -112,6 +112,7 @@ set visualbell
 set ttyfast
 set undofile
 set showbreak=↪
+set linebreak
 
 " mouse?
 set mouse=a
@@ -147,8 +148,6 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E225,E226,E265'
 
 " search sanitity
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase
 set smartcase
 set gdefault
@@ -159,12 +158,12 @@ nnoremap <leader><BS> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
-"macro remap
-nnoremap , @
-nnoremap ,, @@
+"Y behaves as expected, in accord with C, D etc. 
+nnoremap Y y$
 
 "space
 nnoremap <Leader><CR> O<C-c>
+nmap <c-b> <c-a> "c-a is a tmux prefix so to increment numbers use c-b
 
 " open files
 nnoremap <C-p> :CtrlP<CR>
@@ -351,6 +350,15 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 nmap <C-c><C-c> <Plug>ExecuteKeysCc
 nmap <C-c><C-x> <Plug>ExecuteKeysCl
 nmap <C-c>r <Plug>SetTmuxVars
+
+"use spellchecking when writing md
+au BufRead *.md setlocal spell spelllang=en_gb
+au BufRead *.markdown setlocal spell spelllang=en_gb
+
+"set tab stops based on file type
+autocmd Filetype html,htmldjango setlocal ts=2 sts=2 sw=2
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+autocmd Filetype css,scss setlocal ts=2 sts=2 sw=2
 
 "githubissues config
 "imap <c-I> <c-x><c-o>
