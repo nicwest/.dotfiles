@@ -3,7 +3,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -364,6 +364,5 @@ autocmd Filetype css,scss setlocal ts=2 sts=2 sw=2
 
 "githubissues config
 "imap <c-I> <c-x><c-o>
-source ~/.dotfiles/vim/githubissues.vim
 
 noh
