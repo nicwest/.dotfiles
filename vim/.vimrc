@@ -7,7 +7,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
 Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'Raimondi/delimitMate'
@@ -112,6 +111,7 @@ set visualbell
 set ttyfast
 set undofile
 set showbreak=↪
+set iskeyword-=_
 set linebreak
 
 " mouse?
@@ -162,8 +162,7 @@ vnoremap <tab> %
 nnoremap Y y$
 
 "space
-nnoremap <Leader><CR> O<C-c>
-nmap <c-b> <c-a> "c-a is a tmux prefix so to increment numbers use c-b
+nmap <c-b> <c-a>
 
 " open files
 nnoremap <C-p> :CtrlP<CR>
@@ -187,8 +186,9 @@ nnoremap <leader><Tab> <C-^>
 "reselect pasted text
 nnoremap <leader>v V`]
 
-"put under
+"put under/over
 nnoremap <silent> <leader>pu :pu<CR>
+nnoremap <silent> <leader>po :pu!<CR>
 
 "open ~/.vimrc in split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -225,20 +225,8 @@ nnoremap <silent> <leader>qo :copen<CR>
 nnoremap <silent> <leader>qq :cclose<CR>
 nnoremap <silent> <leader>qc :cex []<CR>
 
-"norm-insert toggler
-"find something useful to bind to these useful buttons!
-nmap <F13> :bNext<CR> 
-imap <F13> <nop>
-vmap <F13> <nop>
-
-nmap <F14> :bnext<CR>
-imap <F14> <nop>
-vmap <F14> <nop>
-
-nmap <s-F13> <nop>
-nmap <s-F14> <nop>
-
-imap <F34> <nop>
+"find things to fix/todo
+nnoremap <leader>tf :Ag \(TODO\\|FIXME\)
 
 "buffer paging
 nnoremap [b :bNext<CR>
@@ -286,14 +274,14 @@ function! PythonGetLabel()
     let objregexp = "^\\s*\\(class\\|def\\)\\s\\+[^:]\\+\\s*:"
     if match(getline('.'),objregexp) != -1
         let lastlineindent = indent(line('.'))
-        norm! ^wye
+        norm! ^wyt(
         call insert(lnlist, @0, 0)
     endif
     while line('.') > 1
         if indent('.') < lastlineindent
             if match(getline('.'),objregexp) != -1
                 let lastlineindent = indent(line('.'))
-                norm! ^wye
+                norm! ^wyt(
                 call insert(lnlist, @0, 0)
             endif
         endif
