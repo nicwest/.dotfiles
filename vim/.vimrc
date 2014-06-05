@@ -95,7 +95,7 @@ set colorcolumn=80
 
 " rational vim
 set backspace=indent,eol,start
-set scrolloff=15
+set scrolloff=3
 set showmode
 set hidden
 set encoding=utf-8
@@ -141,6 +141,16 @@ function! NumberToggle()
     endif
 endfunc
 
+function! ScrollOffToggle()
+    if(&scrolloff != 999)
+        norm! zz
+        set scrolloff=999
+    else
+        set scrolloff=3
+    endif
+    echo &scrolloff
+endfunc 
+
 " }}}
 " Leader {{{
 
@@ -167,11 +177,15 @@ nnoremap <Leader>w :w<CR>
 nnoremap <leader><Tab> <C-^>
 
 " reselect pasted text
-nnoremap <leader>v V`]
+nnoremap <leader>v V`]"{{{
 
 " put under/over
 nnoremap <silent> <leader>pu :pu<CR>
 nnoremap <silent> <leader>po :pu!<CR>
+
+" put from the 0 buffer
+nnoremap <leader>pp "0p
+vnoremap <leader>pp "0p
 
 " open ~/.vimrc in split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -203,22 +217,22 @@ nnoremap <silent> <leader>qq :cclose<CR>
 nnoremap <silent> <leader>qc :cex []<CR>
 
 " AG: find things to fix/todo
-nnoremap <leader>tf :Ag \(TODO\\|FIXME\)
+nnoremap <leader>tf :Ag \(TODO\\|FIXME\)<CR>
 
 "Goyo!
 nnoremap <Leader>gy :Goyo<CR>
 
 "spelling stuff
 map <leader>so :setlocal spell!<cr>
-map <leader>sn ]s
-map <leader>sp [s
 map <leader>sa zg
 map <leader>ss z=
+map <leader>sg 1z="}}}
 
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
 " Function binds {{{
 nnoremap <Leader>l  :call NumberToggle()<cr>
+nnoremap <Leader>zz :call ScrollOffToggle()<CR>
 " }}}
 " }}}
 " Key binds {{{
