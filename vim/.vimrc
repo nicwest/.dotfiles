@@ -273,6 +273,9 @@ vmap H ^
 omap L $
 omap H ^
 
+nnoremap j gj
+nnoremap k gk
+
 " expand region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
