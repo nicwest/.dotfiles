@@ -392,6 +392,6 @@ nnoremap gL :call PythonGetLabel()<CR>
 nnoremap <leader>tl :call DjangoTestThis()<CR>
 
 "githubissues config
-source ~/.dotfiles/vim/githubissues.vim
+"source ~/.dotfiles/vim/githubissues.vim
 "}}}
 noh
