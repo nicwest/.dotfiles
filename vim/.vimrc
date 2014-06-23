@@ -33,6 +33,7 @@ Bundle 'terryma/vim-expand-region'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'wellle/targets.vim'
 Bundle 'w0ng/vim-hybrid'
 
 filetype plugin indent on     " required
@@ -177,7 +178,7 @@ nnoremap <Leader>w :w<CR>
 nnoremap <leader><Tab> <C-^>
 
 " reselect pasted text
-nnoremap <leader>v V`]"{{{
+nnoremap <leader>v V`]
 
 " put under/over
 nnoremap <silent> <leader>pu :pu<CR>
@@ -226,7 +227,10 @@ nnoremap <Leader>gy :Goyo<CR>
 map <leader>so :setlocal spell!<cr>
 map <leader>sa zg
 map <leader>ss z=
-map <leader>sg 1z="}}}
+map <leader>sg 1z=
+      
+nnoremap <leader>tt :set tabstop=2 shiftwidth=2 softtabstop=2<cr>
+nnoremap <leader>t<space> :set tabstop=4 shiftwidth=4 softtabstop=4<cr>
 
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
