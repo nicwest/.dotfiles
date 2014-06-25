@@ -6,15 +6,16 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 Bundle 'FuzzyFinder'
 Bundle 'L9'
+Bundle 'gitignore'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'gitignore'
+Bundle 'guns/vim-clojure-static'
 Bundle 'honza/vim-snippets'
 Bundle 'itchyny/lightline.vim'
 Bundle 'jaxbot/github-issues.vim'
@@ -30,10 +31,12 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'terryma/vim-expand-region'
+Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'w0ng/vim-hybrid'
+Bundle 'wellle/targets.vim'
 
 filetype plugin indent on     " required
 
@@ -101,7 +104,7 @@ set hidden
 set encoding=utf-8
 set wildmenu
 set wildmode=longest:full,full
-set visualbell
+set novisualbell
 set ttyfast
 set showbreak=↪
 set iskeyword-=_
@@ -138,6 +141,17 @@ function! NumberToggle()
         set norelativenumber
     else
         set relativenumber
+    endif
+endfunc
+
+"toggle line wrapping
+function! WrapToggle()
+    if(&formatoptions=='cat')
+        set formatoptions=croql
+        echo 'not wrapping'
+    else
+        set formatoptions=cat
+        echo 'wrapping'
     endif
 endfunc
 
@@ -217,8 +231,12 @@ map <leader>ss z=
 
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
+nnoremap <Leader>fd :set ft=txt<CR>
+nnoremap <Leader>fm :set ft=markdown<CR>
 " Function binds {{{
-nnoremap <Leader>l  :call NumberToggle()<cr>
+nnoremap <Leader>ll  :call NumberToggle()<cr>
+nnoremap <Leader>jo  :call WrapToggle()<cr>
+
 " }}}
 " }}}
 " Key binds {{{
@@ -327,6 +345,12 @@ au BufRead *.markdown setlocal spell spelllang=en_gb
 autocmd Filetype html,htmldjango setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype css,scss setlocal ts=2 sts=2 sw=2
+
+"markdown :D
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd Filetype markdown setlocal tw=80
+autocmd Filetype markdown setlocal wm=4
+"autocmd Filetype markdown setlocal fo=cat 
 " }}}
 " Misc {{{
 
