@@ -35,8 +35,8 @@ Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'w0ng/vim-hybrid'
 Bundle 'wellle/targets.vim'
+Bundle 'w0ng/vim-hybrid'
 
 filetype plugin indent on     " required
 
@@ -98,7 +98,7 @@ set colorcolumn=80
 
 " rational vim
 set backspace=indent,eol,start
-set scrolloff=15
+set scrolloff=3
 set showmode
 set hidden
 set encoding=utf-8
@@ -155,6 +155,17 @@ function! WrapToggle()
     endif
 endfunc
 
+"toggle line centering
+function! ScrollOffToggle()
+    if(&scrolloff != 999)
+        norm! zz
+        set scrolloff=999
+    else
+        set scrolloff=3
+    endif
+    echo &scrolloff
+endfunc 
+
 " }}}
 " Leader {{{
 
@@ -187,6 +198,10 @@ nnoremap <leader>v V`]
 nnoremap <silent> <leader>pu :pu<CR>
 nnoremap <silent> <leader>po :pu!<CR>
 
+" put from the 0 buffer
+nnoremap <leader>pp "0p
+vnoremap <leader>pp "0p
+
 " open ~/.vimrc in split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>er :source $MYVIMRC<CR>
@@ -217,17 +232,19 @@ nnoremap <silent> <leader>qq :cclose<CR>
 nnoremap <silent> <leader>qc :cex []<CR>
 
 " AG: find things to fix/todo
-nnoremap <leader>tf :Ag \(TODO\\|FIXME\)
+nnoremap <leader>tf :Ag \(TODO\\|FIXME\)<CR>
 
 "Goyo!
 nnoremap <Leader>gy :Goyo<CR>
 
 "spelling stuff
 map <leader>so :setlocal spell!<cr>
-map <leader>sn ]s
-map <leader>sp [s
 map <leader>sa zg
 map <leader>ss z=
+map <leader>sg 1z=
+      
+nnoremap <leader>tt :set tabstop=2 shiftwidth=2 softtabstop=2<cr>
+nnoremap <leader>t<space> :set tabstop=4 shiftwidth=4 softtabstop=4<cr>
 
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
@@ -236,7 +253,7 @@ nnoremap <Leader>fm :set ft=markdown<CR>
 " Function binds {{{
 nnoremap <Leader>ll  :call NumberToggle()<cr>
 nnoremap <Leader>jo  :call WrapToggle()<cr>
-
+nnoremap <Leader>zz :call ScrollOffToggle()<CR>
 " }}}
 " }}}
 " Key binds {{{
@@ -276,6 +293,9 @@ vmap L $
 vmap H ^
 omap L $
 omap H ^
+
+nnoremap j gj
+nnoremap k gk
 
 " expand region
 vmap v <Plug>(expand_region_expand)
