@@ -3,7 +3,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 Bundle 'gmarik/Vundle.vim'
@@ -35,7 +35,6 @@ Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'wellle/targets.vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'wellle/targets.vim'
 
@@ -243,13 +242,12 @@ map <leader>so :setlocal spell!<cr>
 map <leader>sa zg
 map <leader>ss z=
 map <leader>sg 1z=
-      
+
+"toggle tabspaces
 nnoremap <leader>tt :set tabstop=2 shiftwidth=2 softtabstop=2<cr>
 nnoremap <leader>t<space> :set tabstop=4 shiftwidth=4 softtabstop=4<cr>
 
-map <Leader>tt :set tabstop=4 shiftwidth=4 softtabstop=4<CR>
-map <Leader>th :set tabstop=2 shiftwidth=2 softtabstop=2<CR>
-
+"format binds
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
 nnoremap <Leader>fd :set ft=txt<CR>
