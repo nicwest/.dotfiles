@@ -37,6 +37,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'wellle/targets.vim'
 Bundle 'w0ng/vim-hybrid'
+Bundle 'wellle/targets.vim'
 
 filetype plugin indent on     " required
 
@@ -245,6 +246,9 @@ map <leader>sg 1z=
       
 nnoremap <leader>tt :set tabstop=2 shiftwidth=2 softtabstop=2<cr>
 nnoremap <leader>t<space> :set tabstop=4 shiftwidth=4 softtabstop=4<cr>
+
+map <Leader>tt :set tabstop=4 shiftwidth=4 softtabstop=4<CR>
+map <Leader>th :set tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
 nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
