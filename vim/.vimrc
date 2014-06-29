@@ -22,6 +22,7 @@ Bundle 'jaxbot/github-issues.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'junegunn/goyo.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'lord-garbage/tslime.vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
@@ -237,6 +238,9 @@ nnoremap <leader>tf :Ag \(TODO\\|FIXME\)<CR>
 "Goyo!
 nnoremap <Leader>gy :Goyo<CR>
 
+"RAINBOW_PARENTHESIS: toggle
+nnoremap <leader>(( :RainbowParenthesesToggle<CR>
+
 "spelling stuff
 map <leader>so :setlocal spell!<cr>
 map <leader>sa zg
@@ -259,9 +263,6 @@ nnoremap <Leader>zz :call ScrollOffToggle()<CR>
 " }}}
 " }}}
 " Key binds {{{
-
-" Pawel says this is important
-noremap Q <nop>
 
 "tab toggles between parenthesis 
 nnoremap <tab> %
@@ -303,8 +304,12 @@ nnoremap k gk
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-"NerdTree :D
+"NERDTREE: :D
 map <C-n> :NERDTreeToggle<CR>
+
+"FIREPLACE: Eval binds
+nnoremap Q :Eval<CR>
+vnoremap Q :Eval<CR>
 
 " }}}
 " Plugin Settings {{{
@@ -373,6 +378,12 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd Filetype markdown setlocal tw=80
 autocmd Filetype markdown setlocal wm=4
 "autocmd Filetype markdown setlocal fo=cat 
+
+"clojure
+autocmd BufNewFile,BufRead *.clj RainbowParenthesesToggle
+autocmd BufNewFile,BufRead *.clj RainbowParenthesesLoadRound
+autocmd BufNewFile,BufRead *.clj RainbowParenthesesLoadSquare
+autocmd BufNewFile,BufRead *.clj RainbowParenthesesLoadBraces
 " }}}
 " Misc {{{
 
