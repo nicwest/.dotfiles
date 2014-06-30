@@ -18,20 +18,15 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'guns/vim-clojure-static'
 Bundle 'honza/vim-snippets'
 Bundle 'itchyny/lightline.vim'
-Bundle 'jaxbot/github-issues.vim'
 Bundle 'jpythonfold.vim'
-Bundle 'junegunn/goyo.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'lord-garbage/tslime.vim'
-Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'terryma/vim-expand-region'
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
@@ -177,11 +172,7 @@ let mapleader = "\<Space>"
 nnoremap <leader><BS> :noh<cr>
 
 " CTRL-P
-nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>ff :CtrlPBookmarkDir<Cr>
-
-" CTRL-P: narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " So Wonely....
 nnoremap <leader>1 :only<CR>
@@ -235,9 +226,6 @@ nnoremap <silent> <leader>qc :cex []<CR>
 " AG: find things to fix/todo
 nnoremap <leader>tf :Ag \(TODO\\|FIXME\)<CR>
 
-"Goyo!
-nnoremap <Leader>gy :Goyo<CR>
-
 "RAINBOW_PARENTHESIS: toggle
 nnoremap <leader>(( :RainbowParenthesesToggle<CR>
 
@@ -277,7 +265,6 @@ nmap <c-b> <c-a>
 " CTRL-P
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <C-f> :CtrlPBuffer<CR>
-nnoremap <C-f> :CtrlPBuffer<CR>
 
 "move around windows
 nnoremap <C-h> <C-w>h
@@ -300,10 +287,6 @@ omap H ^
 nnoremap j gj
 nnoremap k gk
 
-" expand region
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
 "NERDTREE: :D
 map <C-n> :NERDTreeToggle<CR>
 
@@ -324,9 +307,6 @@ let g:ctrlp_extensions = ['funky']
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
 endif
-" }}}
-" Emmet {{{
-let g:user_emmet_leader_key='<c-y>'
 " }}}
 " Ag {{{
 " Use Ag over Grep
@@ -448,7 +428,5 @@ endfunction
 nnoremap gL :call PythonGetLabel()<CR>
 nnoremap <leader>tl :call DjangoTestThis()<CR>
 
-"githubissues config
-"source ~/.dotfiles/vim/githubissues.vim
 "}}}
 noh
