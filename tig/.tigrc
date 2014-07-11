@@ -1,2 +1,2 @@
-set show-id = yes
-bind generic y !@sh -c "echo -n %(commit) | xclip -selection c"
+bind generic y !sh -c "/bin/echo -n %(commit) | pbcopy"
+set main-view = id:true date:short author:true commit-title:true,graph=true,refs=true

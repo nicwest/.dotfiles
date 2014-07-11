@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/nic/bin:/usr/local/bin:$PATH"
+export PATH="/Users/nic/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 
