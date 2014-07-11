@@ -1,2 +1,2 @@
-bind generic y !sh -c "/bin/echo -n %(commit) | pbcopy"
+bind generic y !@sh -c "/bin/echo -n %(commit) | pbcopy"
 set main-view = id:true date:short author:true commit-title:true,graph=true,refs=true
