@@ -214,6 +214,9 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gp :Gpush
+nnoremap <leader>gq :Gpull
+nnoremap <leader>gm :Gmerge
 
 " scratch binds
 nnoremap <leader>n :Scratch<CR>
