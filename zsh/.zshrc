@@ -92,3 +92,15 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+get_suspended_jobs() {
+  # thanks to @mheap for his help
+  NUM_JOBS="`jobs | wc -l`"
+  if test $NUM_JOBS -lt 1 ; then
+    echo ""
+  else
+    echo "("`jobs | gsed -r 's/ .*suspended (\(signal\))?//' | tr -s ' ' | gsed 's/\[\([^]]*\)\]/\1:/g' | gsed 's/\: /\:/g'`")"
+  fi
+}
+
+RPROMPT='%{$fg['blue']%} $(get_suspended_jobs)%{$reset_color%}'

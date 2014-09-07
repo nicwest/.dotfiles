@@ -276,8 +276,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-nnoremap [b :bNext<CR>
-nnoremap ]b :bnext<CR>
+"nnoremap <CR> :bNext<CR>
+"nnoremap <DEL> :bnext<CR>
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
@@ -432,4 +432,5 @@ nnoremap gL :call PythonGetLabel()<CR>
 nnoremap <leader>tl :call DjangoTestThis()<CR>
 
 "}}}
+source ~/sideprojects/QQ.vim/QQ.vim
 noh
