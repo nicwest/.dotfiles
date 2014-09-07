@@ -276,8 +276,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-"nnoremap <CR> :bNext<CR>
-"nnoremap <DEL> :bnext<CR>
+nnoremap [b :bNext<CR>
+nnoremap ]b :bnext<CR>
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
@@ -289,6 +289,9 @@ omap H ^
 
 nnoremap j gj
 nnoremap k gk
+
+"opposite of J
+nnoremap K a<CR><ESC>k$
 
 "NERDTREE: :D
 map <C-n> :NERDTreeToggle<CR>
@@ -432,5 +435,4 @@ nnoremap gL :call PythonGetLabel()<CR>
 nnoremap <leader>tl :call DjangoTestThis()<CR>
 
 "}}}
-source ~/sideprojects/QQ.vim/QQ.vim
 noh
