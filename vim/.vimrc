@@ -31,6 +31,7 @@ Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-endwise'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'wellle/targets.vim'
 
@@ -197,6 +198,7 @@ vnoremap <leader>pp "0p
 " open ~/.vimrc in split
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>er :source $MYVIMRC<CR>
+nnoremap <leader>es :exe ":source" expand("%")<CR>
 
 " open vertical split
 nnoremap <leader>S <C-w>v<C-w>l
@@ -358,6 +360,7 @@ au BufRead *.markdown setlocal spell spelllang=en_gb
 autocmd Filetype html,htmldjango setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype css,scss setlocal ts=2 sts=2 sw=2
+autocmd Filetype vim setlocal ts=2 sts=2 sw=2
 
 "markdown :D
 autocmd BufNewFile,BufRead *.md set filetype=markdown
@@ -366,10 +369,10 @@ autocmd Filetype markdown setlocal wm=4
 "autocmd Filetype markdown setlocal fo=cat 
 
 "clojure
-autocmd BufNewFile,BufRead *.clj RainbowParenthesesToggle
-autocmd BufNewFile,BufRead *.clj RainbowParenthesesLoadRound
-autocmd BufNewFile,BufRead *.clj RainbowParenthesesLoadSquare
-autocmd BufNewFile,BufRead *.clj RainbowParenthesesLoadBraces
+autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesToggle
+autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadRound
+autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadSquare
+autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadBraces
 " }}}
 " Misc {{{
 
