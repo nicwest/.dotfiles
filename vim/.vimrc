@@ -361,6 +361,7 @@ autocmd Filetype html,htmldjango setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype css,scss setlocal ts=2 sts=2 sw=2
 autocmd Filetype vim setlocal ts=2 sts=2 sw=2
+autocmd Filetype yaml,yml setlocal ts=2 sts=2 sw=2
 
 "markdown :D
 autocmd BufNewFile,BufRead *.md set filetype=markdown
