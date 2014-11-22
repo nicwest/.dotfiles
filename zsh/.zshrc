@@ -104,3 +104,4 @@ get_suspended_jobs() {
 }
 
 RPROMPT='%{$fg['blue']%} $(get_suspended_jobs)%{$reset_color%}'
+THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'

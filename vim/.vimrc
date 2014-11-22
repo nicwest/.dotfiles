@@ -21,19 +21,23 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'mazubieta/gitlink-vim'
 Bundle 'nicwest/tslime.vim'
 Bundle 'rking/ag.vim'
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+Bundle 'thinca/vim-themis'
+Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'wellle/targets.vim'
+
+Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
 
 filetype plugin indent on     " required
 
@@ -249,6 +253,9 @@ nnoremap <Leader>dj :set ft=python.django<CR>
 nnoremap <Leader>py :set ft=python<CR>
 nnoremap <Leader>fd :set ft=txt<CR>
 nnoremap <Leader>fm :set ft=markdown<CR>
+
+" GIT-LINK: 
+nnoremap <silent> <leader>gl :let @+=gitlink#GitLink()<CR>
 " Function binds {{{
 nnoremap <Leader>ll  :call NumberToggle()<cr>
 nnoremap <Leader>jo  :call WrapToggle()<cr>
@@ -302,6 +309,7 @@ map <C-n> :NERDTreeToggle<CR>
 nnoremap Q :Eval<CR>
 vnoremap Q :Eval<CR>
 
+
 " }}}
 " Plugin Settings {{{
 " Syntastic {{{
@@ -324,6 +332,7 @@ endif
 " }}}
 " NERDTree {{{
 let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeQuitOnOpen = 1
 " }}}
 " Ultisnips {{{
 let g:UltiSnipsExpandTrigger="<c-k>"
@@ -341,6 +350,9 @@ nmap <C-c><C-c> <Plug>ExecuteKeysCc
 nmap <C-c><C-x> <Plug>ExecuteKeysCl
 nmap <C-c>r <Plug>SetTmuxVars
 " }}}
+" Targets {{{
+"let g:targets_separators = ', . ; : + - = ~ _ * # / | \ & $'
+"}}}
 " }}}
 " Mouse {{{
 
@@ -374,6 +386,11 @@ autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesToggle
 autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadRound
 autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadSquare
 autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadBraces
+
+"bind test commands
+autocmd Filetype vim nnoremap <leader>tl :call ThemisTestThis()<CR>
+autocmd Filetype python nnoremap <leader>tl :call DjangoTestThis()<CR>
+
 " }}}
 " Misc {{{
 
@@ -435,8 +452,55 @@ function! DjangoTestThis()
     endif
 endfunction
 
+function! ThemisTestThis()
+    if exists("*SendToTmux")
+        call SendToTmux('themis --reporter dot '.expand('%'))
+        call ExecuteKeys('')
+    endif
+endfunction
+
+function! OpenCoverage() abort
+  let l:cwd = getcwd()
+  let l:current_file = expand('%')
+  let l:coverage_root = l:cwd . '/htmlcov/'
+  let l:coverage_file = substitute(l:current_file, '/', '_', '')
+  let l:coverage_file = substitute(l:coverage_file, '.py', '.html', '')
+  let l:coverage_file = l:coverage_root . l:coverage_file
+  let l:coverage_index = l:coverage_root . 'index.html'
+  if filereadable(l:coverage_file)
+    call system('open '.l:coverage_file)
+  else
+    call system('open '.l:coverage_index)
+  endif
+endfunction
+
+function! RunCoverage() abort
+  if exists("*SendToTmux")
+    call SendToTmux('coverage run manage.py test')
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! CoverageReport() abort
+  if exists("*SendToTmux")
+    call SendToTmux('coverage report')
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! CoverageHtml() abort
+  if exists("*SendToTmux")
+    call SendToTmux('coverage html')
+    call ExecuteKeys('')
+  endif
+endfunction
+
 nnoremap gL :call PythonGetLabel()<CR>
 nnoremap <leader>tl :call DjangoTestThis()<CR>
+nnoremap <leader>co :sil! call OpenCoverage()<CR>
+nnoremap <leader>RR :call RunCoverage()<CR>
+nnoremap <leader>rr :call CoverageReport()<CR>
+nnoremap <leader>ch :call CoverageHtml()<CR>
 
 "}}}
 noh
