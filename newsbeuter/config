@@ -1,0 +1,34 @@
+# no automatic reloading
+refresh-on-startup no
+auto-reload no
+reload-time 60 # minutes
+
+# reloading
+reload-threads 4
+reload-only-visible-feeds no
+show-read-feeds no
+download-retries 4
+
+# notification
+notify-beep yes
+
+# external programs - ff is a firefox wrapper
+browser open
+
+# display
+article-sort-order date-asc
+feedlist-format "%S%n %11u %t"
+articlelist-format "%D %f %?T?;%-17T; ?%t"
+datetime-format "%d-%m %H:%M"
+color listnormal default default
+color listfocus black green
+color article default default
+color info black green
+color listfocus_unread black green
+color listnormal_unread green default
+
+# interface
+confirm-exit yes
+bind-key k up
+bind-key j down
+bind-key O open-in-browser-and-mark-read
