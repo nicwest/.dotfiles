@@ -19,10 +19,9 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'honza/vim-snippets'
 Bundle 'itchyny/lightline.vim'
 Bundle 'jpythonfold.vim'
-Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'mazubieta/gitlink-vim'
 Bundle 'nicwest/tslime.vim'
+Bundle 'nicwest/vim-arrow'
 Bundle 'rking/ag.vim'
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
@@ -34,6 +33,7 @@ Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-scriptease'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'wellle/targets.vim'
 
@@ -184,6 +184,7 @@ nnoremap <leader>1 :only<CR>
 
 " write files
 nnoremap <Leader>w :w<CR>
+nnoremap <silent><Leader>qw :w<CR>:bw<CR>
 
 " buffer swap
 nnoremap <leader><Tab> <C-^>
@@ -274,9 +275,9 @@ nnoremap Y y$
 "Swap number increment and tmux activation key
 nmap <c-b> <c-a>
 
-" CTRL-P
-nnoremap <C-p> :CtrlP<CR>
-nnoremap <C-f> :CtrlPBuffer<CR>
+"" CTRL-P
+"nnoremap <C-p> :CtrlP<CR>
+"nnoremap <C-f> :CtrlPBuffer<CR>
 
 "move around windows
 nnoremap <C-h> <C-w>h
@@ -285,8 +286,18 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-nnoremap [b :bNext<CR>
-nnoremap ]b :bnext<CR>
+nnoremap <silent>]b :ArrowNext<CR>
+nnoremap <silent>[b :ArrowPrevious<CR>
+nnoremap <silent>]B :ArrowSplitNext<CR>
+nnoremap <silent>[B :ArrowSplitPrevious<CR>
+nnoremap <silent>]q :ArrowModified<CR>
+nnoremap <silent>]Q :ArrowSplitModified<CR>
+nnoremap <silent>]r :ArrowRewind<CR>
+nnoremap <silent>]R :ArrowSplitRewind<CR>
+nnoremap <silent>]l :ArrowLast<CR>
+nnoremap <silent>]L :ArrowSplitLast<CR>
+nnoremap <silent>]a :vert ball 3<CR>
+nnoremap <silent>]A :vert ball<CR>
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
@@ -303,7 +314,7 @@ nnoremap k gk
 nnoremap K a<CR><ESC>k$
 
 "NERDTREE: :D
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
 "FIREPLACE: Eval binds
 nnoremap Q :Eval<CR>
