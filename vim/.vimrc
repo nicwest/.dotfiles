@@ -22,6 +22,7 @@ Bundle 'jpythonfold.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'nicwest/tslime.vim'
 Bundle 'nicwest/vim-arrow'
+Bundle 'nicwest/vim-flake8'
 Bundle 'rking/ag.vim'
 Bundle 'scratch.vim'
 Bundle 'scrooloose/nerdcommenter'
@@ -34,10 +35,11 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-scriptease'
+Bundle 'vasconcelloslf/vim-interestingwords'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'wellle/targets.vim'
 
-Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
+"Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
 
 filetype plugin indent on     " required
 
@@ -185,6 +187,7 @@ nnoremap <leader>1 :only<CR>
 " write files
 nnoremap <Leader>w :w<CR>
 nnoremap <silent><Leader>qw :w<CR>:bw<CR>
+nnoremap <silent><Leader>qq :bw!<CR>
 
 " buffer swap
 nnoremap <leader><Tab> <C-^>
@@ -224,13 +227,14 @@ nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gp :Gpush
 nnoremap <leader>gq :Gpull
 nnoremap <leader>gm :Gmerge
+nnoremap <leader>gf :call Flake8()<CR>
 
 " scratch binds
 nnoremap <leader>n :Scratch<CR>
 
 " quick fix
 nnoremap <silent> <leader>qo :copen<CR>
-nnoremap <silent> <leader>qq :cclose<CR>
+nnoremap <silent> <leader>qO :cclose<CR>
 nnoremap <silent> <leader>qc :cex []<CR>
 
 " AG: find things to fix/todo
@@ -269,11 +273,12 @@ nnoremap <Leader>zz :call ScrollOffToggle()<CR>
 nnoremap <tab> %
 vnoremap <tab> %
 
+"reselect indented block
+vnoremap < <V`]
+vnoremap > >V`]
+
 "Y behaves as expected, in accord with C, D etc. 
 nnoremap Y y$
-
-"Swap number increment and tmux activation key
-nmap <c-b> <c-a>
 
 "" CTRL-P
 "nnoremap <C-p> :CtrlP<CR>
@@ -286,18 +291,20 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-nnoremap <silent>]b :ArrowNext<CR>
-nnoremap <silent>[b :ArrowPrevious<CR>
-nnoremap <silent>]B :ArrowSplitNext<CR>
-nnoremap <silent>[B :ArrowSplitPrevious<CR>
-nnoremap <silent>]q :ArrowModified<CR>
-nnoremap <silent>]Q :ArrowSplitModified<CR>
-nnoremap <silent>]r :ArrowRewind<CR>
-nnoremap <silent>]R :ArrowSplitRewind<CR>
-nnoremap <silent>]l :ArrowLast<CR>
-nnoremap <silent>]L :ArrowSplitLast<CR>
-nnoremap <silent>]a :vert ball 3<CR>
-nnoremap <silent>]A :vert ball<CR>
+nnoremap <silent><c-p> :ArrowNext<CR>
+nnoremap <silent><c-f> :ArrowPrevious<CR>
+nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
+nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
+nnoremap <silent><c-q> :ArrowModified<CR>
+nnoremap <silent><c-s>q :ArrowSplitModified<CR>
+nnoremap <silent><c-s>p :ArrowRewind<CR>
+nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
+nnoremap <silent><c-s>f :ArrowLast<CR>
+nnoremap <silent><c-s>l :ArrowSplitLast<CR>
+nnoremap <silent><c-s><space> :vert ball 3<CR>
+nnoremap <silent><c-s><CR> :vert ball<CR>
+
+nnoremap <c-b> :buffers<CR>
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
@@ -340,6 +347,13 @@ endif
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
+" }}}
+" Flake8: {{{
+let g:flake8_ignore = 'E501,E225,E226,E265,F403'
+let g:flake8_exclude = '.svn,CVS,.bzr,.hg,.git,__pycache,migrations,dependencies'
+let g:flake8_max_complexity = 12
+let g:flake8_max_markers = 0
+
 " }}}
 " NERDTree {{{
 let NERDTreeIgnore = ['\.pyc$']
@@ -506,12 +520,24 @@ function! CoverageHtml() abort
   endif
 endfunction
 
+function! WinOneWidth(width) abort
+  exe "normal 99\<c-w>l"
+  let l:last_window = winnr()
+  exe "normal 99\<c-w>h"
+  while winnr() != l:last_window
+    exe "vert res" a:width
+    exe "normal \<c-w>l"
+  endwhile
+endfunction
+
 nnoremap gL :call PythonGetLabel()<CR>
 nnoremap <leader>tl :call DjangoTestThis()<CR>
 nnoremap <leader>co :sil! call OpenCoverage()<CR>
 nnoremap <leader>RR :call RunCoverage()<CR>
 nnoremap <leader>rr :call CoverageReport()<CR>
 nnoremap <leader>ch :call CoverageHtml()<CR>
+nnoremap <leader>+ :call WinOneWidth(80)<CR>
+nnoremap <leader>= :call WinOneWidth(90)<CR>
 
 "}}}
 noh
