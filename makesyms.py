@@ -3,20 +3,21 @@ import os
 home = os.path.expanduser("~")
 path = os.path.join(home, '.dotfiles')
 
-home_links = [
-    ('vim', '.vimrc'),
-    ('tmux', '.tmux.conf'),
-    ('tig', '.tigrc'),
-    ('zsh', '.zshrc'),
-    ('X', '.Xmodmap'),
-    ('mutt', '.muttrc'),
-]
+links = [
+    ('~', 'vim', '.vimrc'),
+    ('~', 'tmux', '.tmux.conf'),
+    ('~', 'tig', '.tigrc'),
+    ('~', 'zsh', '.zshrc'),
+    ('~', 'X', '.Xmodmap'),
+    ('~', 'mutt', '.muttrc'),
+    ('~/.config', 'flake8', 'flake8')]
 
 
 def get_paths(link):
-    filename = link[1]
-    link_target_path = os.path.join(home, filename)
-    link_origin_path = os.path.join(path, os.path.join(*link))
+    filename = link[2]
+    directory = os.path.expanduser(link[0])
+    link_target_path = os.path.join(directory, filename)
+    link_origin_path = os.path.join(path, os.path.join(*link[1:]))
     return filename, link_target_path, link_origin_path
 
 
@@ -41,7 +42,7 @@ def make_link(link):
 
 
 def do_files():
-    for link in home_links:
+    for link in links:
         backup_existing_configs(link)
         make_link(link)
 
