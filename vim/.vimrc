@@ -322,10 +322,6 @@ nnoremap K a<CR><ESC>k$
 "NERDTREE: :D
 nnoremap <C-n> :NERDTreeToggle<CR>
 
-"FIREPLACE: Eval binds
-nnoremap Q :Eval<CR>
-vnoremap Q :Eval<CR>
-
 
 " }}}
 " Plugin Settings {{{
