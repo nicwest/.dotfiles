@@ -11,12 +11,10 @@ Bundle 'FuzzyFinder'
 Bundle 'L9'
 Bundle 'gitignore'
 Bundle 'Raimondi/delimitMate'
-Bundle 'SirVer/ultisnips'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'guns/vim-clojure-static'
-Bundle 'honza/vim-snippets'
 Bundle 'itchyny/lightline.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/rainbow_parentheses.vim'
@@ -109,7 +107,8 @@ set wildmenu
 set wildmode=longest:full,full
 set novisualbell
 set ttyfast
-set showbreak=↪
+"set showbreak=↪
+set showbreak=>
 set iskeyword-=_
 set linebreak
 
@@ -196,8 +195,8 @@ nnoremap <leader><Tab> <C-^>
 nnoremap <leader>v V`]
 
 " put under/over
-nnoremap <silent> <leader>pu :pu<CR>
-nnoremap <silent> <leader>po :pu!<CR>
+nnoremap <silent> <leader>pu :pu<CR>`[=`]
+nnoremap <silent> <leader>po :pu!<CR>`[=`]
 
 " put from the 0 buffer
 nnoremap <leader>pp "0p
@@ -462,7 +461,7 @@ function! PythonGetLabel()
         norm! k
     endwhile
     let pathlist =  split(expand('%:r'), '/')
-    echo 'Python label: ' join(pathlist + lnlist, '.')
+    "echo 'Python label: ' join(pathlist + lnlist, '.')
     let @0 = join(pathlist + lnlist, '.')
     let @+ = @0
     call setpos('.', originalline)
