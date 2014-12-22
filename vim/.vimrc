@@ -223,6 +223,8 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>go :Gbrowse<CR>
+vnoremap <leader>go :Gbrowse<CR>
 nnoremap <leader>gp :Gpush
 nnoremap <leader>gq :Gpull
 nnoremap <leader>gm :Gmerge
@@ -290,20 +292,20 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-nnoremap <silent><c-p> :ArrowNext<CR>
-nnoremap <silent><c-f> :ArrowPrevious<CR>
-nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
-nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
-nnoremap <silent><c-q> :ArrowModified<CR>
-nnoremap <silent><c-s>q :ArrowSplitModified<CR>
-nnoremap <silent><c-s>p :ArrowRewind<CR>
-nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
-nnoremap <silent><c-s>f :ArrowLast<CR>
-nnoremap <silent><c-s>l :ArrowSplitLast<CR>
-nnoremap <silent><c-s><space> :vert ball 3<CR>
-nnoremap <silent><c-s><CR> :vert ball<CR>
+"nnoremap <silent><c-p> :ArrowNext<CR>
+"nnoremap <silent><c-f> :ArrowPrevious<CR>
+"nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
+"nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
+"nnoremap <silent><c-q> :ArrowModified<CR>
+"nnoremap <silent><c-s>q :ArrowSplitModified<CR>
+"nnoremap <silent><c-s>p :ArrowRewind<CR>
+"nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
+"nnoremap <silent><c-s>f :ArrowLast<CR>
+"nnoremap <silent><c-s>l :ArrowSplitLast<CR>
+"nnoremap <silent><c-s><space> :vert ball 3<CR>
+"nnoremap <silent><c-s><CR> :vert ball<CR>
 
-nnoremap <c-b> :buffers<CR>
+"nnoremap <c-b> :buffers<CR>
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
