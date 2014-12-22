@@ -19,7 +19,7 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'jpythonfold.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'nicwest/tslime.vim'
-Bundle 'nicwest/vim-arrow'
+"Bundle 'nicwest/vim-arrow'
 Bundle 'nicwest/vim-flake8'
 Bundle 'rking/ag.vim'
 Bundle 'scratch.vim'
@@ -344,9 +344,6 @@ if executable('ag')
 endif
 " }}}
 " Flake8: {{{
-let g:flake8_ignore = 'E501,E225,E226,E265,F403'
-let g:flake8_exclude = '.svn,CVS,.bzr,.hg,.git,__pycache,migrations,dependencies'
-let g:flake8_max_complexity = 12
 let g:flake8_max_markers = 0
 
 " }}}
