@@ -1,43 +1,38 @@
 " vim:fdm=marker
-" Vundle {{{
+" Plug {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
-Bundle 'gmarik/Vundle.vim'
-Bundle 'FuzzyFinder'
-Bundle 'L9'
-Bundle 'gitignore'
-Bundle 'Raimondi/delimitMate'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'guns/vim-clojure-static'
-Bundle 'itchyny/lightline.vim'
-Bundle 'jpythonfold.vim'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'nicwest/tslime.vim'
-"Bundle 'nicwest/vim-arrow'
-Bundle 'nicwest/vim-flake8'
-Bundle 'rking/ag.vim'
-Bundle 'scratch.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'thinca/vim-themis'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fireplace'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-scriptease'
-Bundle 'vasconcelloslf/vim-interestingwords'
-Bundle 'w0ng/vim-hybrid'
-Bundle 'wellle/targets.vim'
+Plug 'FuzzyFinder'
+Plug 'L9'
+Plug 'Raimondi/delimitMate'
+Plug 'airblade/vim-gitgutter'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'guns/vim-clojure-static'
+Plug 'itchyny/lightline.vim'
+Plug 'jpythonfold.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'nicwest/tslime.vim'
+Plug 'nicwest/vim-arrow'
+Plug 'nicwest/QQ.vim'
+Plug 'nicwest/vim-flake8'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-scriptease'
+Plug 'w0ng/vim-hybrid'
+Plug 'wellle/targets.vim'
 
 "Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
+call plug#end()
 
 filetype plugin indent on     " required
 
@@ -292,20 +287,20 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-"nnoremap <silent><c-p> :ArrowNext<CR>
-"nnoremap <silent><c-f> :ArrowPrevious<CR>
-"nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
-"nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
-"nnoremap <silent><c-q> :ArrowModified<CR>
-"nnoremap <silent><c-s>q :ArrowSplitModified<CR>
-"nnoremap <silent><c-s>p :ArrowRewind<CR>
-"nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
-"nnoremap <silent><c-s>f :ArrowLast<CR>
-"nnoremap <silent><c-s>l :ArrowSplitLast<CR>
-"nnoremap <silent><c-s><space> :vert ball 3<CR>
-"nnoremap <silent><c-s><CR> :vert ball<CR>
+nnoremap <silent><c-p> :ArrowNext<CR>
+nnoremap <silent><c-f> :ArrowPrevious<CR>
+nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
+nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
+nnoremap <silent><c-q> :ArrowModified<CR>
+nnoremap <silent><c-s>q :ArrowSplitModified<CR>
+nnoremap <silent><c-s>p :ArrowRewind<CR>
+nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
+nnoremap <silent><c-s>f :ArrowLast<CR>
+nnoremap <silent><c-s>l :ArrowSplitLast<CR>
+nnoremap <silent><c-s><space> :vert ball 3<CR>
+nnoremap <silent><c-s><CR> :vert ball<CR>
 
-"nnoremap <c-b> :buffers<CR>
+nnoremap <c-b> :buffers<CR>
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
@@ -372,6 +367,9 @@ nmap <C-c>r <Plug>SetTmuxVars
 " Targets {{{
 "let g:targets_separators = ', . ; : + - = ~ _ * # / | \ & $'
 "}}}
+" Endwise: {{{
+let g:endwise_abbreviations = 1
+" }}}
 " }}}
 " Mouse {{{
 
@@ -381,7 +379,7 @@ map <ScrollWheelDown> 3<C-E>
 
 " }}}
 " Autocommands {{{
-autocmd FileType python source ~/.vim/bundle/jpythonfold.vim/syntax/jpythonfold.vim
+autocmd FileType python source ~/.vim/plugged/jpythonfold.vim/syntax/jpythonfold.vim
 
 "use spellchecking when writing md
 au BufRead *.md setlocal spell spelllang=en_gb
@@ -400,11 +398,17 @@ autocmd Filetype markdown setlocal tw=80
 autocmd Filetype markdown setlocal wm=4
 "autocmd Filetype markdown setlocal fo=cat 
 
-"clojure
-autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesToggle
-autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadRound
-autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadSquare
-autocmd BufNewFile,BufRead *.clj,*.vim RainbowParenthesesLoadBraces
+"clojure/vim
+autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesActivate
+autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadRound
+autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadSquare
+autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadBraces
+
+"help
+autocmd Filetype vim nnoremap ? :vert help 
+
+"Scriptease
+autocmd Filetype vim nnoremap \| :Runtime<CR>
 
 "bind test commands
 autocmd Filetype vim nnoremap <leader>tl :call ThemisTestThis()<CR>

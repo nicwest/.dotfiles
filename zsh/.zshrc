@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/Users/nic/bin:/usr/local/bin:$PATH"
+export PATH="/Users/nic/local/bin:/Users/nic/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -105,3 +105,5 @@ get_suspended_jobs() {
 
 RPROMPT='%{$fg['blue']%} $(get_suspended_jobs)%{$reset_color%}'
 THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
+
+source ~/perl5/perlbrew/etc/bashrc
