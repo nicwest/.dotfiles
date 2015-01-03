@@ -163,6 +163,110 @@ function! ScrollOffToggle()
     echo &scrolloff
 endfunc 
 
+" Modeline after last buffer
+function! AppendModeline()
+    let l:modeline = printf("vim: set ft=%s ts=%d sw=%d tw=%d %set :",
+                \ &filetype, &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    call append(line("$"), l:modeline)
+endfunction
+
+"https://gist.github.com/nicwest/11081513
+function! PythonGetLabel()
+  if foldlevel('.') != 0
+    norm! zo
+  endif
+  let originalline = getpos('.')
+  let lnlist = [] 
+  let lastlineindent = indent(line('.'))
+  let objregexp = "^\\s*\\(class\\|def\\)\\s\\+[^:]\\+\\s*:"
+  if match(getline('.'),objregexp) != -1
+    let lastlineindent = indent(line('.'))
+    norm! ^wyt(
+    call insert(lnlist, @0, 0)
+  endif
+  while line('.') > 1
+    if indent('.') < lastlineindent
+      if match(getline('.'),objregexp) != -1
+        let lastlineindent = indent(line('.'))
+        norm! ^wyt(
+        call insert(lnlist, @0, 0)
+      endif
+    endif
+    norm! k
+  endwhile
+  let pathlist =  split(expand('%:r'), '/')
+  "echo 'Python label: ' join(pathlist + lnlist, '.')
+  let @0 = join(pathlist + lnlist, '.')
+  let @+ = @0
+  call setpos('.', originalline)
+endfunction
+
+function! DjangoTestThis()
+  call PythonGetLabel()
+  let @" = './manage.py test ' . @0
+  if exists("*SendToTmux")
+    call SendToTmux(@")
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! ThemisTestThis()
+  if exists("*SendToTmux")
+    call SendToTmux('themis --reporter dot '.expand('%'))
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! OpenCoverage() abort
+  let l:cwd = getcwd()
+  let l:current_file = expand('%')
+  let l:coverage_root = l:cwd . '/htmlcov/'
+  let l:coverage_file = substitute(l:current_file, '/', '_', '')
+  let l:coverage_file = substitute(l:coverage_file, '.py', '.html', '')
+  let l:coverage_file = l:coverage_root . l:coverage_file
+  let l:coverage_index = l:coverage_root . 'index.html'
+  if filereadable(l:coverage_file)
+    call system('open '.l:coverage_file)
+  else
+    call system('open '.l:coverage_index)
+  endif
+endfunction
+
+function! RunCoverage() abort
+  if exists("*SendToTmux")
+    call SendToTmux('coverage run manage.py test')
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! CoverageReport() abort
+  if exists("*SendToTmux")
+    call SendToTmux('coverage report')
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! CoverageHtml() abort
+  if exists("*SendToTmux")
+    call SendToTmux('coverage html')
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! WinOneWidth(width) abort
+  exe "normal 99\<c-w>l"
+  let l:last_window = winnr()
+  exe "normal 99\<c-w>h"
+  while winnr() != l:last_window
+    exe "vert res" a:width
+    exe "normal \<c-w>l"
+  endwhile
+endfunction
+
+" }}}
+" Commands: {{{
+command! ModeLine :call AppendModeline()
 " }}}
 " Leader {{{
 
@@ -255,12 +359,17 @@ nnoremap <Leader>py :set ft=python<CR>
 nnoremap <Leader>fd :set ft=txt<CR>
 nnoremap <Leader>fm :set ft=markdown<CR>
 
-" GIT-LINK: 
-nnoremap <silent> <leader>gl :let @+=gitlink#GitLink()<CR>
 " Function binds {{{
 nnoremap <Leader>ll  :call NumberToggle()<cr>
 nnoremap <Leader>jo  :call WrapToggle()<cr>
 nnoremap <Leader>zz :call ScrollOffToggle()<CR>
+nnoremap <leader>tl :call DjangoTestThis()<CR>
+nnoremap <leader>co :sil! call OpenCoverage()<CR>
+nnoremap <leader>RR :call RunCoverage()<CR>
+nnoremap <leader>rr :call CoverageReport()<CR>
+nnoremap <leader>ch :call CoverageHtml()<CR>
+nnoremap <leader>+ :call WinOneWidth(80)<CR>
+nnoremap <leader>= :call WinOneWidth(90)<CR>
 " }}}
 " }}}
 " Key binds {{{
@@ -435,107 +544,6 @@ if os == 'unix'
     set clipboard=unnamedplus
 endif
 
-"https://gist.github.com/nicwest/11081513
-function! PythonGetLabel()
-    if foldlevel('.') != 0
-        norm! zo
-    endif
-    let originalline = getpos('.')
-    let lnlist = [] 
-    let lastlineindent = indent(line('.'))
-    let objregexp = "^\\s*\\(class\\|def\\)\\s\\+[^:]\\+\\s*:"
-    if match(getline('.'),objregexp) != -1
-        let lastlineindent = indent(line('.'))
-        norm! ^wyt(
-        call insert(lnlist, @0, 0)
-    endif
-    while line('.') > 1
-        if indent('.') < lastlineindent
-            if match(getline('.'),objregexp) != -1
-                let lastlineindent = indent(line('.'))
-                norm! ^wyt(
-                call insert(lnlist, @0, 0)
-            endif
-        endif
-        norm! k
-    endwhile
-    let pathlist =  split(expand('%:r'), '/')
-    "echo 'Python label: ' join(pathlist + lnlist, '.')
-    let @0 = join(pathlist + lnlist, '.')
-    let @+ = @0
-    call setpos('.', originalline)
-endfunction
-
-function! DjangoTestThis()
-    call PythonGetLabel()
-    let @" = './manage.py test ' . @0
-    if exists("*SendToTmux")
-        call SendToTmux(@")
-        call ExecuteKeys('')
-    endif
-endfunction
-
-function! ThemisTestThis()
-    if exists("*SendToTmux")
-        call SendToTmux('themis --reporter dot '.expand('%'))
-        call ExecuteKeys('')
-    endif
-endfunction
-
-function! OpenCoverage() abort
-  let l:cwd = getcwd()
-  let l:current_file = expand('%')
-  let l:coverage_root = l:cwd . '/htmlcov/'
-  let l:coverage_file = substitute(l:current_file, '/', '_', '')
-  let l:coverage_file = substitute(l:coverage_file, '.py', '.html', '')
-  let l:coverage_file = l:coverage_root . l:coverage_file
-  let l:coverage_index = l:coverage_root . 'index.html'
-  if filereadable(l:coverage_file)
-    call system('open '.l:coverage_file)
-  else
-    call system('open '.l:coverage_index)
-  endif
-endfunction
-
-function! RunCoverage() abort
-  if exists("*SendToTmux")
-    call SendToTmux('coverage run manage.py test')
-    call ExecuteKeys('')
-  endif
-endfunction
-
-function! CoverageReport() abort
-  if exists("*SendToTmux")
-    call SendToTmux('coverage report')
-    call ExecuteKeys('')
-  endif
-endfunction
-
-function! CoverageHtml() abort
-  if exists("*SendToTmux")
-    call SendToTmux('coverage html')
-    call ExecuteKeys('')
-  endif
-endfunction
-
-function! WinOneWidth(width) abort
-  exe "normal 99\<c-w>l"
-  let l:last_window = winnr()
-  exe "normal 99\<c-w>h"
-  while winnr() != l:last_window
-    exe "vert res" a:width
-    exe "normal \<c-w>l"
-  endwhile
-endfunction
-
-nnoremap gL :call PythonGetLabel()<CR>
-nnoremap <leader>tl :call DjangoTestThis()<CR>
-nnoremap <leader>co :sil! call OpenCoverage()<CR>
-nnoremap <leader>RR :call RunCoverage()<CR>
-nnoremap <leader>rr :call CoverageReport()<CR>
-nnoremap <leader>ch :call CoverageHtml()<CR>
-nnoremap <leader>+ :call WinOneWidth(80)<CR>
-nnoremap <leader>= :call WinOneWidth(90)<CR>
-
 "}}}
 noh
+"vim: set ft=vim ts=2 sw=2 tw=78 et :
