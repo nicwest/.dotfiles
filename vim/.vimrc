@@ -11,12 +11,14 @@ Plug 'Raimondi/delimitMate'
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'guns/vim-clojure-static'
+Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jpythonfold.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'nicwest/tslime.vim'
 Plug 'nicwest/vim-arrow'
 Plug 'nicwest/QQ.vim'
+Plug 'nicwest/template-bucket'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -83,7 +85,6 @@ set number
 set cursorline
 
 " indents and auto-indent
-set smartindent
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -165,8 +166,10 @@ endfunc
 
 " Modeline after last buffer
 function! AppendModeline()
-    let l:modeline = printf("vim: set ft=%s ts=%d sw=%d tw=%d %set :",
-                \ &filetype, &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = printf(" vim: set ft=%s ts=%d sw=%d tw=%d %s %set",
+                \ &filetype, &tabstop, &shiftwidth, &textwidth,
+                \ &fdm == 'manual' || &fdm == 'marker' ? 'fdm=marker' : '',
+                \ &expandtab ? '' : 'no')
     let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
     call append(line("$"), l:modeline)
 endfunction
@@ -207,6 +210,13 @@ function! DjangoTestThis()
   let @" = './manage.py test ' . @0
   if exists("*SendToTmux")
     call SendToTmux(@")
+    call ExecuteKeys('')
+  endif
+endfunction
+
+function! PyTestThis()
+  if exists("*SendToTmux")
+    call SendToTmux('py.test ' . expand('%'))
     call ExecuteKeys('')
   endif
 endfunction
@@ -322,8 +332,8 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>go :Gbrowse<CR>
 vnoremap <leader>go :Gbrowse<CR>
+nnoremap <leader>go :Gbrowse<CR>
 nnoremap <leader>gp :Gpush
 nnoremap <leader>gq :Gpull
 nnoremap <leader>gm :Gmerge
@@ -363,7 +373,8 @@ nnoremap <Leader>fm :set ft=markdown<CR>
 nnoremap <Leader>ll  :call NumberToggle()<cr>
 nnoremap <Leader>jo  :call WrapToggle()<cr>
 nnoremap <Leader>zz :call ScrollOffToggle()<CR>
-nnoremap <leader>tl :call DjangoTestThis()<CR>
+"nnoremap <leader>tl :call DjangoTestThis()<CR>
+nnoremap <leader>tl :call PyTestThis()<CR>
 nnoremap <leader>co :sil! call OpenCoverage()<CR>
 nnoremap <leader>RR :call RunCoverage()<CR>
 nnoremap <leader>rr :call CoverageReport()<CR>
@@ -388,6 +399,17 @@ nnoremap Y y$
 "" CTRL-P
 "nnoremap <C-p> :CtrlP<CR>
 "nnoremap <C-f> :CtrlPBuffer<CR>
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" maps x to null buffer
+nnoremap x "_x
+xnoremap x "_x
+
+" the only real place that I use the reg for x
+nnoremap cx xp 
 
 "move around windows
 nnoremap <C-h> <C-w>h
@@ -521,7 +543,8 @@ autocmd Filetype vim nnoremap \| :Runtime<CR>
 
 "bind test commands
 autocmd Filetype vim nnoremap <leader>tl :call ThemisTestThis()<CR>
-autocmd Filetype python nnoremap <leader>tl :call DjangoTestThis()<CR>
+"autocmd Filetype python nnoremap <leader>tl :call DjangoTestThis()<CR>
+autocmd Filetype python nnoremap <leader>tl :call PyTestThis()<CR>
 
 " }}}
 " Misc {{{
