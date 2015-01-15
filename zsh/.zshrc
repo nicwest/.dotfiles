@@ -16,6 +16,7 @@ alias mas="git checkout master"
 alias g-="git checkout -"
 alias v="vim"
 alias gmf='git merge --no-ff'
+alias t="tig"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
