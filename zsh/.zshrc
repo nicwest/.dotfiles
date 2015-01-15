@@ -10,6 +10,12 @@ ZSH_THEME="robbyrussell"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias notify="osascript -e 'display notification \"Done\" with title \"Done\"'"
+alias dev="git checkout develop"
+alias mas="git checkout master"
+alias g-="git checkout -"
+alias v="vim"
+alias gmf='git merge --no-ff'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
