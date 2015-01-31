@@ -17,7 +17,7 @@ Plug 'jpythonfold.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'nicwest/tslime.vim'
 Plug 'nicwest/vim-arrow'
-Plug 'nicwest/QQ.vim'
+Plug 'nicwest/QQ.vim', {'branch': 'feat-body'}
 Plug 'nicwest/template-bucket'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
@@ -216,14 +216,14 @@ endfunction
 
 function! PyTestThis()
   if exists("*SendToTmux")
-    call SendToTmux('py.test ' . expand('%'))
+    call SendToTmux('py.test ' . expand('%') . ' --reuse-db')
     call ExecuteKeys('')
   endif
 endfunction
 
 function! ThemisTestThis()
   if exists("*SendToTmux")
-    call SendToTmux('themis --reporter dot '.expand('%'))
+    call SendToTmux('vim-themis/bin/themis --reporter dot '.expand('%'))
     call ExecuteKeys('')
   endif
 endfunction

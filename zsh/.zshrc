@@ -49,10 +49,11 @@ alias t="tig"
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
 
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump tmux history-substring-search gitignore osx web-search)
+plugins=(git autojump tmux history-substring-search gitignore zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -82,7 +83,6 @@ if [ `uname` = "Darwin" ]; then
 else
     export EDITOR=vim
 fi
-
 
 #DISABLE SCROLL LOCK (http://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator)
 stty -ixon
