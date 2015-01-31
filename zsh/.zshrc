@@ -11,7 +11,7 @@ ZSH_THEME="robbyrussell"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 TODO_SH="/usr/local/Cellar/todo-txt/2.10/bin/todo.sh"
-alias notify="osascript -e 'display notification \"Done\" with title \"Done\"'"
+#alias notify="osascript -e 'display notification \"Done\" with title \"Done\"'"
 alias dev="git checkout develop"
 alias mas="git checkout master"
 alias g-="git checkout -"
@@ -63,7 +63,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/Users/nic/local/bin:/Users/nic/bin:/usr/local/bin:$PATH"
+export PATH="/Users/nic/local/bin:/Users/nic/bin:/home/nic/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -165,10 +165,7 @@ tls () {
 }
 
 RPROMPT='$(_get_suspended_jobs) %{$fg['cyan']%}$(_get_project_todos)%{$reset_color%}|%{$fg['blue']%}$(_get_non_project_todos)%{$reset_color%}'
-THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
-
-source ~/perl5/perlbrew/etc/bashrc
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
