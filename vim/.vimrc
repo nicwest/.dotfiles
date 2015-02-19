@@ -9,6 +9,7 @@ Plug 'FuzzyFinder'
 Plug 'L9'
 Plug 'Raimondi/delimitMate'
 Plug 'airblade/vim-gitgutter'
+Plug 'chase/vim-ansible-yaml'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
@@ -566,7 +567,6 @@ set clipboard=unnamed
 if os == 'unix'
     set clipboard=unnamedplus
 endif
-
 "}}}
 noh
 "vim: set ft=vim ts=2 sw=2 tw=78 et :

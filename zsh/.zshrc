@@ -10,6 +10,7 @@ ZSH_THEME="robbyrussell"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+TODO_SH="/usr/local/Cellar/todo-txt/2.10/bin/todo.sh"
 alias notify="osascript -e 'display notification \"Done\" with title \"Done\"'"
 alias dev="git checkout develop"
 alias mas="git checkout master"
@@ -17,6 +18,8 @@ alias g-="git checkout -"
 alias v="vim"
 alias gmf='git merge --no-ff'
 alias t="tig"
+alias todo="$TODO_SH"
+alias tdo="$TODO_SH do"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -53,7 +56,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump tmux history-substring-search gitignore zsh-syntax-highlighting)
+plugins=(git autojump history-substring-search gitignore zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,17 +103,68 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-get_suspended_jobs() {
+_get_suspended_jobs() {
   # thanks to @mheap for his help
   NUM_JOBS="`jobs | wc -l`"
   if test $NUM_JOBS -lt 1 ; then
     echo ""
   else
-    echo "("`jobs | gsed -r 's/ .*suspended (\(signal\))?//' | tr -s ' ' | gsed 's/\[\([^]]*\)\]/\1:/g' | gsed 's/\: /\:/g'`")"
+    echo "("`jobs | grep ' .*suspended' | sed 's/  . suspended //' | sed 's/\[\([^]]*\)\]/\1:/g' | sed 's/\: /\:/g'`")"
   fi
 }
 
-RPROMPT='%{$fg['blue']%} $(get_suspended_jobs)%{$reset_color%}'
+_get_project_todos() {
+    local git_dir=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ "$git_dir" != "" ] ; then
+        local root_name=$( basename $git_dir )
+        local num_proj_todo="$($TODO_SH ls +$root_name | wc -l | sed -e's/ *//')"
+        echo $( expr $num_proj_todo - 2 )
+    else
+        local root_name=""
+        echo "0"
+    fi
+}
+
+_get_non_project_todos() {
+    local git_dir=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ "$git_dir" != "" ] ; then
+        local root_name=$( basename $git_dir )
+        local num_non_proj_todo="$($TODO_SH ls -$root_name | wc -l | sed -e's/ *//')"
+    else
+        local root_name=""
+        local num_non_proj_todo="$($TODO_SH ls | wc -l | sed -e's/ *//')"
+    fi
+    echo $( expr $num_non_proj_todo - 2 )
+}
+
+ta() {
+    if [ $# -eq 0 ]; then
+        echo "no arguments given fucktard :("
+        return 0
+    fi
+    local git_dir=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ "$git_dir" != "" ] ; then
+       local root_name=$( basename $git_dir )
+       $TODO_SH add +$root_name $@
+    else
+       local root_name=""
+       $TODO_SH add $@
+    fi
+}
+
+tls () {
+    local git_dir=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ "$git_dir" != "" ] ; then
+       local root_name=$( basename $git_dir )
+       $TODO_SH list +$root_name $@
+    else
+       local root_name=""
+       $TODO_SH list $@
+    fi
+}
+
+RPROMPT='$(_get_suspended_jobs) %{$fg['cyan']%}$(_get_project_todos)%{$reset_color%}|%{$fg['blue']%}$(_get_non_project_todos)%{$reset_color%}'
 THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
 source ~/perl5/perlbrew/etc/bashrc
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
