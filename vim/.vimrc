@@ -15,6 +15,7 @@ Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
 "Plug 'itchyny/lightline.vim'
 Plug 'jpythonfold.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
 Plug 'edkolev/tmuxline.vim'
 "Plug 'trapd00r/vim-after-syntax-vim'
@@ -23,8 +24,7 @@ Plug 'nicwest/vim-arrow'
 Plug 'nicwest/vim-workman'
 "Plug 'nicwest/vim-filebeagle', {'branch': 'empty-directories'}
 Plug 'nicwest/vim-after-syntax-vim'
-Plug 'junegunn/goyo.vim'
-Plug 'nicwest/QQ.vim', {'branch': 'feat-body'}
+Plug 'nicwest/QQ.vim', {'branch': 'master'}
 Plug 'nicwest/template-bucket'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
@@ -517,6 +517,7 @@ nmap <C-c>r <Plug>SetTmuxVars
 " Endwise: {{{
 let g:endwise_abbreviations = 1
 " }}}
+<<<<<<< HEAD
 " Rainbow: {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -541,6 +542,10 @@ let g:rainbow_conf = {
       \       'css': 0,
       \   }
       \}
+=======
+" QQ.vim {{{
+let g:QQ_python_executable = 'python2'
+>>>>>>> nipple things
 " }}}
 " }}}
 " Mouse {{{

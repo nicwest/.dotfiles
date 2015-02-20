@@ -63,7 +63,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/Users/nic/local/bin:/Users/nic/bin:/home/nic/bin:/usr/local/bin:$PATH"
+export PATH="/home/nic/.gem/ruby/2.2.0/bin:/home/nic/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 
