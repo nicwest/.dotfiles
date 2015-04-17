@@ -13,17 +13,25 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
 Plug 'jpythonfold.vim'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
+Plug 'edkolev/tmuxline.vim'
+"Plug 'trapd00r/vim-after-syntax-vim'
 Plug 'nicwest/tslime.vim'
 Plug 'nicwest/vim-arrow'
+Plug 'nicwest/vim-workman'
+"Plug 'nicwest/vim-filebeagle', {'branch': 'empty-directories'}
+Plug 'nicwest/vim-after-syntax-vim'
+Plug 'junegunn/goyo.vim'
 Plug 'nicwest/QQ.vim', {'branch': 'feat-body'}
 Plug 'nicwest/template-bucket'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+Plug 'chriskempson/base16-vim'
+"Plug 'scrooloose/nerdtree'
+Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
@@ -31,7 +39,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-scriptease'
-Plug 'w0ng/vim-hybrid'
+"Plug 'w0ng/vim-hybrid'
 Plug 'wellle/targets.vim'
 
 "Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
@@ -71,9 +79,11 @@ endif
 " color scheme
 syntax enable
 set t_Co=256
+let base16colorspace=256
 set background=dark
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
+"let g:hybrid_use_Xresources = 1
+"colorscheme hybrid
+colorscheme base16-ocean
 
 " }}}
 " Settings {{{
@@ -104,6 +114,10 @@ set wildmenu
 set wildmode=longest:full,full
 set novisualbell
 set ttyfast
+
+" path wildcards
+set path=**
+
 "set showbreak=↪
 set showbreak=>
 set iskeyword-=_
@@ -352,7 +366,7 @@ nnoremap <silent> <leader>qc :cex []<CR>
 nnoremap <leader>tf :Ag \(TODO\\|FIXME\)<CR>
 
 "RAINBOW_PARENTHESIS: toggle
-nnoremap <leader>(( :RainbowParenthesesToggle<CR>
+nnoremap <leader>(( :RainbowToggle<CR>
 
 "spelling stuff
 map <leader>so :setlocal spell!<cr>
@@ -442,14 +456,15 @@ vmap H ^
 omap L $
 omap H ^
 
-nnoremap j gj
-nnoremap k gk
+"nnoremap j gj
+"nnoremap k gk
 
 "opposite of J
 nnoremap K a<CR><ESC>k$
 
 "NERDTREE: :D
-nnoremap <C-n> :NERDTreeToggle<CR>
+"nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <C-N> :call system('say -v "Bad News" "Nerd tree is dead, long live file beagle!" &')<CR>
 
 
 " }}}
@@ -502,6 +517,31 @@ nmap <C-c>r <Plug>SetTmuxVars
 " Endwise: {{{
 let g:endwise_abbreviations = 1
 " }}}
+" Rainbow: {{{
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+      \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+      \   'ctermfgs': ['blue', 'yellow', 'cyan', 'magenta'],
+      \   'operators': '_,_',
+      \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+      \   'separately': {
+      \       '*': {},
+      \       'tex': {
+      \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+      \       },
+      \       'lisp': {
+      \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+      \       },
+      \       'vim': {
+      \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+      \       },
+      \       'html': {
+      \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+      \       },
+      \       'css': 0,
+      \   }
+      \}
+" }}}
 " }}}
 " Mouse {{{
 
@@ -531,10 +571,10 @@ autocmd Filetype markdown setlocal wm=4
 "autocmd Filetype markdown setlocal fo=cat 
 
 "clojure/vim
-autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesActivate
-autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadRound
-autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadSquare
-autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadBraces
+"autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesActivate
+"autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadRound
+"autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadSquare
+"autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadBraces
 
 "help
 autocmd Filetype vim nnoremap ? :vert help 

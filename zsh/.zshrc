@@ -20,6 +20,7 @@ alias gmf='git merge --no-ff'
 alias t="tig"
 alias todo="$TODO_SH"
 alias tdo="$TODO_SH do"
+alias tm="todotxt-machine"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -117,8 +118,8 @@ _get_project_todos() {
     local git_dir=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ "$git_dir" != "" ] ; then
         local root_name=$( basename $git_dir )
-        local num_proj_todo="$($TODO_SH ls +$root_name | wc -l | sed -e's/ *//')"
-        echo $( expr $num_proj_todo - 2 )
+        local num_proj_todo="$($TODO_SH ls +$root_name | grep '^\S\+\s[^x]' | wc -l | sed -e's/ *//')"
+        echo $( expr $num_proj_todo - 1 )
     else
         local root_name=""
         echo "0"
@@ -129,12 +130,12 @@ _get_non_project_todos() {
     local git_dir=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ "$git_dir" != "" ] ; then
         local root_name=$( basename $git_dir )
-        local num_non_proj_todo="$($TODO_SH ls -$root_name | wc -l | sed -e's/ *//')"
+        local num_non_proj_todo="$($TODO_SH ls -+$root_name | grep '^\S\+\s[^x]' | wc -l | sed -e's/ *//')"
     else
         local root_name=""
-        local num_non_proj_todo="$($TODO_SH ls | wc -l | sed -e's/ *//')"
+        local num_non_proj_todo="$($TODO_SH ls | grep '^\S\+\s[^x]' | wc -l | sed -e's/ *//')"
     fi
-    echo $( expr $num_non_proj_todo - 2 )
+    echo $( expr $num_non_proj_todo - 1 )
 }
 
 ta() {
@@ -168,3 +169,6 @@ THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
 source ~/perl5/perlbrew/etc/bashrc
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
