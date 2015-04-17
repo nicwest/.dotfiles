@@ -5,12 +5,12 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="sorin"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-TODO_SH="/usr/local/Cellar/todo-txt/2.10/bin/todo.sh"
+TODO_SH="/home/nic/things/todo.txt_cli-2.9/todo.sh"
 #alias notify="osascript -e 'display notification \"Done\" with title \"Done\"'"
 alias dev="git checkout develop"
 alias mas="git checkout master"
@@ -21,6 +21,10 @@ alias t="tig"
 alias todo="$TODO_SH"
 alias tdo="$TODO_SH do"
 alias tm="todotxt-machine"
+alias workman="setxkbmap -v workman && xset r 66"
+alias qwerty="setxkbmap gb && xset r 66"
+alias qdrwbj="setxkbmap gb && xset r 66"
+alias ergodox="setxkbmap us && xset r 66"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -53,11 +57,11 @@ alias tm="todotxt-machine"
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+#ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump history-substring-search gitignore zsh-syntax-highlighting)
+plugins=(git autojump history-substring-search gitignore)
 
 source $ZSH/oh-my-zsh.sh
 

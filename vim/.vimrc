@@ -7,31 +7,26 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'FuzzyFinder'
 Plug 'L9'
-Plug 'Raimondi/delimitMate'
-Plug 'airblade/vim-gitgutter'
 Plug 'chase/vim-ansible-yaml'
+Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
-"Plug 'itchyny/lightline.vim'
-Plug 'jpythonfold.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'jeetsukumaran/vim-filebeagle'
+Plug 'jpythonfold.vim'
 Plug 'luochen1990/rainbow'
-Plug 'edkolev/tmuxline.vim'
-"Plug 'trapd00r/vim-after-syntax-vim'
 Plug 'nicwest/tslime.vim'
-Plug 'nicwest/vim-arrow'
-Plug 'nicwest/vim-workman'
-"Plug 'nicwest/vim-filebeagle', {'branch': 'empty-directories'}
-Plug 'nicwest/vim-after-syntax-vim'
+Plug 'git@github.com:nicwest/template-bucket.git'
 Plug 'nicwest/QQ.vim', {'branch': 'master'}
-Plug 'nicwest/template-bucket'
+Plug 'nicwest/vim-after-syntax-vim'
+Plug 'nicwest/vim-arrow'
+"Plug 'nicwest/vim-filebeagle', {'branch': 'empty-directories'}
 Plug 'nicwest/vim-flake8'
+Plug 'nicwest/vim-workman'
+Plug 'Raimondi/delimitMate'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'chriskempson/base16-vim'
-"Plug 'scrooloose/nerdtree'
-Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
@@ -39,10 +34,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-scriptease'
-"Plug 'w0ng/vim-hybrid'
+Plug 'vim-jp/vital.vim'
 Plug 'wellle/targets.vim'
-
-"Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
 call plug#end()
 
 filetype plugin indent on     " required
@@ -63,15 +56,6 @@ else
       let os="unix"
     endif
   endif
-endif
-
-if os=="unix"
-    set <F13>=[25~
-    set <F14>=[26~
-    set <s-F13>=[25;2~ 
-    set <s-F14>=[26;2~
-    set <F33>=[25;5~
-    set <F34>=[26;5~
 endif
 " }}}
 " Colors {{{
@@ -114,9 +98,8 @@ set wildmenu
 set wildmode=longest:full,full
 set novisualbell
 set ttyfast
-
-" path wildcards
 set path=**
+set langnoremap
 
 "set showbreak=↪
 set showbreak=>
@@ -231,7 +214,11 @@ endfunction
 
 function! PyTestThis()
   if exists("*SendToTmux")
-    call SendToTmux('py.test ' . expand('%') . ' --reuse-db')
+    if g:nicwest_pytest_django
+      call SendToTmux('py.test ' . expand('%') . ' --reuse-db')
+    else
+      call SendToTmux('py.test ' . expand('%'))
+    endif
     call ExecuteKeys('')
   endif
 endfunction
@@ -289,9 +276,18 @@ function! WinOneWidth(width) abort
   endwhile
 endfunction
 
-" }}}
+function! s:workman(undo) abort
+  if !a:undo
+    set langmap=qdrwbjfup\\;ashtgyneoizxmcvklQDRWBJFUP:ASHTGYNEOIZXMCVKL;qwertyuiopasdfg\\;hjklzxcvbnmQWERTYUIOPASDFG:HJKLZXCVBNM
+  else
+    set langmap=
+  endif
+endfunction
+
+"" }}}
 " Commands: {{{
 command! ModeLine :call AppendModeline()
+"command! -bang Workman :call s:workman("<bang>" == "!")
 " }}}
 " Leader {{{
 
@@ -467,7 +463,7 @@ nnoremap K a<CR><ESC>k$
 nnoremap <silent> <C-N> :call system('say -v "Bad News" "Nerd tree is dead, long live file beagle!" &')<CR>
 
 
-" }}}
+"" }}}
 " Plugin Settings {{{
 " Syntastic {{{
 let g:syntastic_python_checkers = ['flake8']
@@ -517,8 +513,10 @@ nmap <C-c>r <Plug>SetTmuxVars
 " Endwise: {{{
 let g:endwise_abbreviations = 1
 " }}}
-<<<<<<< HEAD
-" Rainbow: {{{
+" QQ.vim {{{
+let g:QQ_python_executable = 'python2'
+" }}}
+" Rainbow {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
       \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
@@ -542,10 +540,9 @@ let g:rainbow_conf = {
       \       'css': 0,
       \   }
       \}
-=======
-" QQ.vim {{{
-let g:QQ_python_executable = 'python2'
->>>>>>> nipple things
+" }}}
+" Filebeagle: {{{
+let g:filebeagle_show_hidden = 1
 " }}}
 " }}}
 " Mouse {{{
@@ -596,6 +593,9 @@ autocmd Filetype python nnoremap <leader>tl :call PyTestThis()<CR>
 " Misc {{{
 
 " Make backup folders etc automatically if they don't already exist.
+
+let g:nicwest_pytest_django = 1
+
 if !isdirectory(expand(&undodir))
    call mkdir(expand(&undodir), "p")
 endif
@@ -613,5 +613,5 @@ if os == 'unix'
     set clipboard=unnamedplus
 endif
 "}}}
-noh
-"vim: set ft=vim ts=2 sw=2 tw=78 et :
+"noh
+""vim: set ft=vim ts=2 sw=2 tw=78 et :
