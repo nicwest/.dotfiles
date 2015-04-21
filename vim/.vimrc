@@ -13,7 +13,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'jeetsukumaran/vim-filebeagle'
+"Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'jpythonfold.vim'
 Plug 'luochen1990/rainbow'
 Plug 'nicwest/tslime.vim'
@@ -21,7 +21,7 @@ Plug 'git@github.com:nicwest/template-bucket.git'
 Plug 'nicwest/QQ.vim', {'branch': 'master'}
 Plug 'nicwest/vim-after-syntax-vim'
 Plug 'nicwest/vim-arrow'
-"Plug 'nicwest/vim-filebeagle', {'branch': 'empty-directories'}
+Plug 'nicwest/vim-filebeagle', {'branch': 'gitignore'}
 Plug 'nicwest/vim-flake8'
 Plug 'nicwest/vim-workman'
 Plug 'Raimondi/delimitMate'
@@ -65,9 +65,7 @@ syntax enable
 set t_Co=256
 let base16colorspace=256
 set background=dark
-"let g:hybrid_use_Xresources = 1
-"colorscheme hybrid
-colorscheme base16-ocean
+colorscheme base16-default
 
 " }}}
 " Settings {{{
@@ -239,9 +237,9 @@ function! OpenCoverage() abort
   let l:coverage_file = l:coverage_root . l:coverage_file
   let l:coverage_index = l:coverage_root . 'index.html'
   if filereadable(l:coverage_file)
-    call system('open '.l:coverage_file)
+    call system('firefox '.l:coverage_file)
   else
-    call system('open '.l:coverage_index)
+    call system('firefox '.l:coverage_index)
   endif
 endfunction
 
@@ -542,7 +540,7 @@ let g:rainbow_conf = {
       \}
 " }}}
 " Filebeagle: {{{
-let g:filebeagle_show_hidden = 1
+let g:filebeagle_show_hidden = 0
 " }}}
 " }}}
 " Mouse {{{
