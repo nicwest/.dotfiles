@@ -13,24 +13,21 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
-"Plug 'itchyny/lightline.vim'
 Plug 'jpythonfold.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
 Plug 'edkolev/tmuxline.vim'
-"Plug 'trapd00r/vim-after-syntax-vim'
 Plug 'nicwest/tslime.vim'
 Plug 'nicwest/vim-arrow'
 Plug 'nicwest/vim-workman'
-"Plug 'nicwest/vim-filebeagle', {'branch': 'empty-directories'}
+"Plug 'nicwest/vim-filebeagle', {'branch': 'gitignore'}
 Plug 'nicwest/vim-after-syntax-vim'
-Plug 'junegunn/goyo.vim'
 Plug 'nicwest/QQ.vim', {'branch': 'feat-body'}
 Plug 'nicwest/template-bucket'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'chriskempson/base16-vim'
-"Plug 'scrooloose/nerdtree'
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
@@ -39,7 +36,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-scriptease'
-"Plug 'w0ng/vim-hybrid'
+Plug 'tpope/vim-projectionist'
 Plug 'wellle/targets.vim'
 
 "Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
@@ -231,7 +228,7 @@ endfunction
 
 function! PyTestThis()
   if exists("*SendToTmux")
-    call SendToTmux('py.test ' . expand('%') . ' --reuse-db')
+    call SendToTmux('py.test ' . expand('%'))
     call ExecuteKeys('')
   endif
 endfunction
@@ -460,12 +457,18 @@ omap H ^
 "nnoremap k gk
 
 "opposite of J
-nnoremap K a<CR><ESC>k$
+"nnoremap K a<CR><ESC>k$
 
 "NERDTREE: :D
 "nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <silent> <C-N> :call system('say -v "Bad News" "Nerd tree is dead, long live file beagle!" &')<CR>
 
+" Projectionist:
+nnoremap ga :A<CR>
+nnoremap gA <C-w>v<C-w>l:A<CR>
+
+nnoremap gq :cn<CR>
+nnoremap gp :cp<CR>
 
 " }}}
 " Plugin Settings {{{
@@ -542,6 +545,9 @@ let g:rainbow_conf = {
       \   }
       \}
 " }}}
+" Filebeagle: {{{
+let g:filebeagle_check_gitignore = 1
+" }}}
 " }}}
 " Mouse {{{
 
@@ -578,6 +584,7 @@ autocmd Filetype markdown setlocal wm=4
 
 "help
 autocmd Filetype vim nnoremap ? :vert help 
+autocmd Filetype qf setlocal nowrap nonumber norelativenumber colorcolumn=
 
 "Scriptease
 autocmd Filetype vim nnoremap \| :Runtime<CR>
