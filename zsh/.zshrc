@@ -63,7 +63,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/Users/nic/local/bin:/Users/nic/bin:/usr/local/bin:$PATH"
+export PATH="/home/nic/bin:/Users/nic/local/bin:/Users/nic/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -164,11 +164,12 @@ tls () {
     fi
 }
 
-RPROMPT='$(_get_suspended_jobs) %{$fg['cyan']%}$(_get_project_todos)%{$reset_color%}|%{$fg['blue']%}$(_get_non_project_todos)%{$reset_color%}'
+RPROMPT='$(_get_suspended_jobs)'
+#RPROMPT='$(_get_suspended_jobs) %{$fg['cyan']%}$(_get_project_todos)%{$reset_color%}|%{$fg['blue']%}$(_get_non_project_todos)%{$reset_color%}'
 THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
-source ~/perl5/perlbrew/etc/bashrc
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#source ~/perl5/perlbrew/etc/bashrc
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
