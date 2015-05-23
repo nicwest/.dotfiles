@@ -7,23 +7,23 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'FuzzyFinder'
 Plug 'L9'
+Plug 'hsanson/vim-android'
 Plug 'Raimondi/delimitMate'
 Plug 'airblade/vim-gitgutter'
 Plug 'chase/vim-ansible-yaml'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'guns/vim-clojure-static'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jpythonfold.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
-Plug 'edkolev/tmuxline.vim'
 Plug 'nicwest/tslime.vim'
 Plug 'nicwest/vim-arrow'
 Plug 'nicwest/vim-workman'
 "Plug 'nicwest/vim-filebeagle', {'branch': 'gitignore'}
 Plug 'nicwest/vim-after-syntax-vim'
-Plug 'nicwest/QQ.vim', {'branch': 'feat-body'}
-Plug 'nicwest/template-bucket'
+Plug 'nicwest/QQ.vim'
+Plug 'nicwest/cocoa.vim', {'branch': 'syntax-only'}
+Plug 'git@github.com:nicwest/template-bucket.git'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -38,6 +38,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-projectionist'
 Plug 'wellle/targets.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
 
 "Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
 call plug#end()
@@ -286,9 +288,19 @@ function! WinOneWidth(width) abort
   endwhile
 endfunction
 
+let g:nicwest_smartsplit_width = 80
+function! s:smartsplit() abort
+  if winwidth('.') >= 2 * g:nicwest_smartsplit_width
+    execute "norm! \<C-W>v\<C-W>l"
+  else
+    execute "norm! \<C-W>s\<C-W>j"
+  endif
+endfunction
+
 " }}}
 " Commands: {{{
 command! ModeLine :call AppendModeline()
+command! SmartSplit :call <SID>smartsplit()
 " }}}
 " Leader {{{
 
@@ -324,7 +336,7 @@ nnoremap <leader>pp "0p
 vnoremap <leader>pp "0p
 
 " open ~/.vimrc in split
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>ev :SmartSplit<CR>:e $MYVIMRC<CR>
 nnoremap <leader>er :source $MYVIMRC<CR>
 nnoremap <leader>es :exe ":source" expand("%")<CR>
 
@@ -465,10 +477,10 @@ nnoremap <silent> <C-N> :call system('say -v "Bad News" "Nerd tree is dead, long
 
 " Projectionist:
 nnoremap ga :A<CR>
-nnoremap gA <C-w>v<C-w>l:A<CR>
+nnoremap gA :SmartSplit<CR>:A<CR>
 
-nnoremap gq :cn<CR>
-nnoremap gp :cp<CR>
+nnoremap gQ :cn<CR>
+nnoremap gP :cp<CR>
 
 " }}}
 " Plugin Settings {{{
@@ -575,6 +587,8 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd Filetype markdown setlocal tw=80
 autocmd Filetype markdown setlocal wm=4
 "autocmd Filetype markdown setlocal fo=cat 
+"
+autocmd Filetype notes RainbowToggle
 
 "clojure/vim
 "autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesActivate

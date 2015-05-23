@@ -21,6 +21,7 @@ alias t="tig"
 alias todo="$TODO_SH"
 alias tdo="$TODO_SH do"
 alias tm="todotxt-machine"
+alias fuck='eval $(thefuck $(fc -ln -1))'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -63,8 +64,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/nic/bin:/Users/nic/local/bin:/Users/nic/bin:/usr/local/bin:$PATH"
+export PATH="/home/nic/go/bin:/home/nic/bin:/usr/local/go/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
+export GOPATH="/home/nic/go:$GOPATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -162,6 +164,12 @@ tls () {
        local root_name=""
        $TODO_SH list $@
     fi
+}
+
+lspath () {
+    (($#)) || set ''
+    local names; names=($^path/*$^@*(N:t))
+    print -lr -- ${(ou)names}
 }
 
 RPROMPT='$(_get_suspended_jobs)'
