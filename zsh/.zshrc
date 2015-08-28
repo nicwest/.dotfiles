@@ -14,6 +14,8 @@ TODO_SH="/usr/local/Cellar/todo-txt/2.10/bin/todo.sh"
 alias notify="osascript -e 'display notification \"Done\" with title \"Done\"'"
 alias dev="git checkout develop"
 alias mas="git checkout master"
+alias pro="git checkout production"
+alias cov="git checkout coverage"
 alias g-="git checkout -"
 alias v="vim"
 alias gmf='git merge --no-ff'
@@ -22,6 +24,7 @@ alias todo="$TODO_SH"
 alias tdo="$TODO_SH do"
 alias tm="todotxt-machine"
 alias fuck='eval $(thefuck $(fc -ln -1))'
+alias server='python -m SimpleHTTPServer && firefox http://localhost:8000'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -54,7 +57,7 @@ alias fuck='eval $(thefuck $(fc -ln -1))'
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -64,9 +67,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/nic/go/bin:/home/nic/bin:/usr/local/go/bin:/usr/local/bin:$PATH"
+export PATH="/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/local/go/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
-export GOPATH="/home/nic/go:$GOPATH"
+export GOPATH="/home/nic/go"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -172,7 +175,44 @@ lspath () {
     print -lr -- ${(ou)names}
 }
 
-RPROMPT='$(_get_suspended_jobs)'
+mkcd () {
+    mkdir -pv $1 && cd $1
+}
+
+smysql()
+{
+    /usr/bin/mysql \
+        --ssl-ca=/home/nic/.cert/inter_cert \
+        --ssl-cert=/home/nic/.cert/cert \
+        --ssl-key=/home/nic/.cert/key \
+        $*
+}
+
+smysqldump()
+{
+    /usr/bin/mysqldump \
+        --ssl-ca=/home/nic/.cert/inter_cert \
+        --ssl-cert=/home/nic/.cert/cert \
+        --ssl-key=/home/nic/.cert/key \
+        $*
+}
+
+howwipped()
+{
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        local wips=$(git log --format=oneline -n 6 |  grep -c "\-\-wip\-\-");
+        if [ "$wips" -gt "5" ]; then
+            echo -n "^"
+        fi
+        local counter=0
+        while [ "$counter" -lt "$wips" ]; do
+            echo -n "*"
+            let counter=counter+1
+        done
+    fi
+}
+
+RPROMPT='%{$fg['red']%}$(howwipped)%{$reset_color%}$(_get_suspended_jobs)'
 #RPROMPT='$(_get_suspended_jobs) %{$fg['cyan']%}$(_get_project_todos)%{$reset_color%}|%{$fg['blue']%}$(_get_non_project_todos)%{$reset_color%}'
 THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
@@ -181,3 +221,5 @@ THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+export DJANGO_SETTINGS_MODULE=services.settings.local

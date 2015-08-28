@@ -7,19 +7,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'FuzzyFinder'
 Plug 'L9'
-Plug 'hsanson/vim-android'
 Plug 'Raimondi/delimitMate'
-Plug 'airblade/vim-gitgutter'
 Plug 'chase/vim-ansible-yaml'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'fatih/vim-go'
 Plug 'haya14busa/incsearch.vim'
+Plug 'honza/vim-snippets'
 Plug 'jpythonfold.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
 Plug 'nicwest/tslime.vim'
 Plug 'nicwest/vim-arrow'
 Plug 'nicwest/vim-workman'
-"Plug 'nicwest/vim-filebeagle', {'branch': 'gitignore'}
 Plug 'nicwest/vim-after-syntax-vim'
 Plug 'nicwest/QQ.vim'
 Plug 'nicwest/cocoa.vim', {'branch': 'syntax-only'}
@@ -27,9 +25,11 @@ Plug 'git@github.com:nicwest/template-bucket.git'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'SirVer/ultisnips'
 Plug 'chriskempson/base16-vim'
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'scrooloose/syntastic'
+Plug 'tommcdo/vim-fubitive'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
@@ -38,8 +38,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-projectionist'
 Plug 'wellle/targets.vim'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-notes'
+Plug 'Valloric/YouCompleteMe'
 
 "Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
 call plug#end()
@@ -83,6 +82,7 @@ set background=dark
 "let g:hybrid_use_Xresources = 1
 "colorscheme hybrid
 colorscheme base16-ocean
+"colorscheme seti
 
 " }}}
 " Settings {{{
@@ -90,6 +90,9 @@ colorscheme base16-ocean
 " line numbers
 set relativenumber
 set number
+
+" wrapping off, this might be a bad idea, lets see how it goes
+set nowrap
 
 "cursorline
 set cursorline
@@ -119,7 +122,6 @@ set path=**
 
 "set showbreak=↪
 set showbreak=>
-set iskeyword-=_
 set linebreak
 
 "status line
@@ -251,9 +253,9 @@ function! OpenCoverage() abort
   let l:coverage_file = l:coverage_root . l:coverage_file
   let l:coverage_index = l:coverage_root . 'index.html'
   if filereadable(l:coverage_file)
-    call system('open '.l:coverage_file)
+    call system('firefox '.l:coverage_file)
   else
-    call system('open '.l:coverage_index)
+    call system('firefox '.l:coverage_index)
   endif
 endfunction
 
@@ -341,15 +343,13 @@ nnoremap <leader>er :source $MYVIMRC<CR>
 nnoremap <leader>es :exe ":source" expand("%")<CR>
 
 " open vertical split
-nnoremap <leader>S <C-w>v<C-w>l
+nnoremap <leader>S :SmartSplit<CR>
 nnoremap <leader>8 :vertical resize 80<CR>
 nnoremap <leader>9 :vertical resize 90<CR>
 nnoremap <leader>0 :vertical resize 100<CR>
 
 " folding and things
 nnoremap <leader><leader> za
-nnoremap <leader>r zr
-nnoremap <leader>m zm
 
 " FUGUTIVE
 nnoremap <leader>gs :Gstatus<CR>
@@ -479,8 +479,14 @@ nnoremap <silent> <C-N> :call system('say -v "Bad News" "Nerd tree is dead, long
 nnoremap ga :A<CR>
 nnoremap gA :SmartSplit<CR>:A<CR>
 
-nnoremap gQ :cn<CR>
-nnoremap gP :cp<CR>
+nnoremap gs :Estyles<CR>
+nnoremap gS :SmartSplit<CR>:Estyles<CR>
+
+nnoremap gp :Eproject<CR>
+nnoremap gP :SmartSplit<CR>:Eproject<CR>
+
+" TagBar:
+nnoremap <C-T> :TagbarToggle<CR>
 
 " }}}
 " Plugin Settings {{{
@@ -517,9 +523,10 @@ let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
 " }}}
 " YouCompleteMe {{{
 let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+"let 
 " }}}
 " TSlime {{{
 nmap <C-c><C-c> <Plug>ExecuteKeysCc
@@ -547,18 +554,25 @@ let g:rainbow_conf = {
       \       'lisp': {
       \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
       \       },
-      \       'vim': {
-      \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-      \       },
       \       'html': {
       \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
       \       },
+      \       'htmldjango': 0,
       \       'css': 0,
       \   }
       \}
 " }}}
 " Filebeagle: {{{
 let g:filebeagle_check_gitignore = 1
+" }}}
+" Go: {{{
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>tl <Plug>(go-test)
+au FileType go nmap <leader>RR <Plug>(go-coverage)
+au FileType go nmap <Leader>re <Plug>(go-rename)
+au FileType go nmap <Leader>I <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
 " }}}
 " }}}
 " Mouse {{{
@@ -581,6 +595,7 @@ autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype css,scss setlocal ts=2 sts=2 sw=2
 autocmd Filetype vim setlocal ts=2 sts=2 sw=2
 autocmd Filetype yaml,yml setlocal ts=2 sts=2 sw=2
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 
 "markdown :D
 autocmd BufNewFile,BufRead *.md set filetype=markdown
@@ -591,6 +606,7 @@ autocmd Filetype markdown setlocal wm=4
 autocmd Filetype notes RainbowToggle
 
 "clojure/vim
+autocmd BufNewFile,BufRead *.cljx set ft=clojure
 "autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesActivate
 "autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadRound
 "autocmd BufNewFile,BufRead *.clj,*.cljs,*.vim RainbowParenthesesLoadSquare
@@ -607,6 +623,8 @@ autocmd Filetype vim nnoremap \| :Runtime<CR>
 autocmd Filetype vim nnoremap <leader>tl :call ThemisTestThis()<CR>
 "autocmd Filetype python nnoremap <leader>tl :call DjangoTestThis()<CR>
 autocmd Filetype python nnoremap <leader>tl :call PyTestThis()<CR>
+
+autocmd User FileBeagleReadPost nnoremap <buffer> . PreFill! !
 
 " }}}
 " Misc {{{
