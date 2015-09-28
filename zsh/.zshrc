@@ -67,7 +67,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/local/go/bin:/usr/local/bin:$PATH"
+export PATH="/home/nic/android/platform-tools:/home/nic/android/tools:/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/local/go/bin:/usr/local/bin:$PATH"
 export LANG=en_GB.UTF-8
 export GOPATH="/home/nic/go"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -217,7 +217,7 @@ RPROMPT='%{$fg['red']%}$(howwipped)%{$reset_color%}$(_get_suspended_jobs)'
 THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
 #source ~/perl5/perlbrew/etc/bashrc
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
