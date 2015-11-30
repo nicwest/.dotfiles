@@ -1,3 +1,4 @@
+export TERM="xterm-256color"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -219,7 +220,10 @@ THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 #source ~/perl5/perlbrew/etc/bashrc
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+#BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 export DJANGO_SETTINGS_MODULE=services.settings.local
+
+# added by travis gem
+[ -f /home/nic/.travis/travis.sh ] && source /home/nic/.travis/travis.sh

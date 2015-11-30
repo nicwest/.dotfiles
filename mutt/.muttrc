@@ -1,33 +1,27 @@
 
 # Credentials ---------------------------------
 # For use with "plain" IMAP synchronisation
-set imap_user       = "nope"
-set imap_pass       = "nope"
-set smtp_url        = "nope"
-set smtp_pass       = "nope"
 set imap_keepalive = 900
 
 # How often should mutt check for new mail? ----
-set mail_check      = 0
+set mail_check      = 60
 
 # Notify me of new mail ------------------------
 set timeout        = 15
 set imap_check_subscribed
 
-# GMail Folders --------------------------------
+# GMail Folders ---------------------------------
 # For use with "plain" IMAP synchronisation
-set folder         = "imaps://imap.gmail.com:993"
-set spoolfile      = "+INBOX"
-set postponed      = "+Drafts"
-set record         = "+Sent Mail"
-set trash          = "+Bin"
+
+folder-hook 'gmail.com' 'source ~/.mutt/account.gmail'
+folder-hook 'ingresso.co.uk' 'source ~/.mutt/ingresso.co.uk'
+# switch to default account on startup
+#source ~/.mutt/account.gmail
+source ~/.mutt/account.ingresso
 
 ## General mutt settings file
 set realname        = "Nic West"
 set charset         = "utf-8"
-
-# How often should mutt check for new mail? ----
-set mail_check=30000
 
 #set mbox_type        = Maildir
 #set folder           = ~/.mail

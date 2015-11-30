@@ -16,17 +16,18 @@ Plug 'honza/vim-snippets'
 Plug 'jpythonfold.vim'
 Plug 'luochen1990/rainbow'
 Plug 'nicwest/tslime.vim'
-Plug 'nicwest/vim-arrow'
+"Plug 'nicwest/vim-arrow'
 Plug 'nicwest/vim-workman'
 Plug 'nicwest/vim-after-syntax-vim'
 Plug 'nicwest/QQ.vim'
 Plug 'nicwest/cocoa.vim', {'branch': 'syntax-only'}
+Plug 'nicwest/vim-bnext'
 Plug 'git@github.com:nicwest/template-bucket.git'
 Plug 'nicwest/vim-flake8'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'SirVer/ultisnips'
-Plug 'chriskempson/base16-vim'
+Plug 'w0ng/vim-hybrid'
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'scrooloose/syntastic'
 Plug 'tommcdo/vim-fubitive'
@@ -77,11 +78,11 @@ endif
 " color scheme
 syntax enable
 set t_Co=256
-let base16colorspace=256
+"let base16colorspace=256
 set background=dark
 "let g:hybrid_use_Xresources = 1
-"colorscheme hybrid
-colorscheme base16-ocean
+colorscheme hybrid
+"colorscheme base16-ocean
 "colorscheme seti
 
 " }}}
@@ -499,20 +500,23 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "buffer paging
-nnoremap <silent><c-p> :ArrowNext<CR>
-nnoremap <silent><c-f> :ArrowPrevious<CR>
-nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
-nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
-nnoremap <silent><c-q> :ArrowModified<CR>
-nnoremap <silent><c-s>q :ArrowSplitModified<CR>
-nnoremap <silent><c-s>p :ArrowRewind<CR>
-nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
-nnoremap <silent><c-s>f :ArrowLast<CR>
-nnoremap <silent><c-s>l :ArrowSplitLast<CR>
+nnoremap <silent><c-p> :BNext<CR>
+nnoremap <silent><c-q> :Bnext<CR>
+nnoremap <silent><c-f> :BNext!<CR>
+"nnoremap <silent><c-p> :ArrowNext<CR>
+"nnoremap <silent><c-f> :ArrowPrevious<CR>
+"nnoremap <silent><c-s><c-p> :ArrowSplitNext<CR>
+"nnoremap <silent><c-s><c-f> :ArrowSplitPrevious<CR>
+"nnoremap <silent><c-q> :ArrowModified<CR>
+"nnoremap <silent><c-s>q :ArrowSplitModified<CR>
+"nnoremap <silent><c-s>p :ArrowRewind<CR>
+"nnoremap <silent><c-s>r :ArrowSplitRewind<CR>
+"nnoremap <silent><c-s>f :ArrowLast<CR>
+"nnoremap <silent><c-s>l :ArrowSplitLast<CR>
 nnoremap <silent><c-s><space> :vert ball 3<CR>
 nnoremap <silent><c-s><CR> :vert ball<CR>
 
-nnoremap <c-b> :buffers<CR>
+nnoremap <c-b> :buffers<CR>:b 
 
 " This feels more logical and I have c-d and c-u for navigation
 nnoremap L $
