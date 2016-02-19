@@ -40,6 +40,8 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-projectionist'
 Plug 'wellle/targets.vim'
 Plug 'Valloric/YouCompleteMe'
+Plug 'vim-jp/vital.vim'
+Plug '/home/nic/sideprojects/vim-git-appraise'
 
 "Bundle 'file:///Users/nic/Sideprojects/QQ.vim'
 call plug#end()
@@ -80,7 +82,7 @@ syntax enable
 set t_Co=256
 "let base16colorspace=256
 set background=dark
-"let g:hybrid_use_Xresources = 1
+let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 "colorscheme base16-ocean
 "colorscheme seti
@@ -90,7 +92,7 @@ colorscheme hybrid
 
 " line numbers
 set relativenumber
-set number
+set nonumber
 
 " wrapping off, this might be a bad idea, lets see how it goes
 set nowrap
@@ -293,7 +295,7 @@ endfunction
 
 let g:nicwest_smartsplit_width = 80
 function! s:smartsplit() abort
-  if winwidth('.') >= 2 * g:nicwest_smartsplit_width
+  if winnr() <= 2
     execute "norm! \<C-W>v\<C-W>l"
   else
     execute "norm! \<C-W>s\<C-W>j"
@@ -705,9 +707,6 @@ endif
 "auto set clipboard
 set clipboard=unnamed
 
-if os == 'unix'
-    set clipboard=unnamedplus
-endif
 "}}}
 noh
 "vim: set ft=vim ts=2 sw=2 tw=78 et :

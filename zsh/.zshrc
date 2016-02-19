@@ -21,11 +21,14 @@ alias g-="git checkout -"
 alias v="vim"
 alias gmf='git merge --no-ff'
 alias t="tig"
+alias m="vim ~/.muttrc && mutt"
 alias todo="$TODO_SH"
 alias tdo="$TODO_SH do"
 alias tm="todotxt-machine"
 alias fuck='eval $(thefuck $(fc -ln -1))'
 alias server='python -m SimpleHTTPServer && firefox http://localhost:8000'
+alias ukkb='setxkbmap gb'
+alias uskb='setxkbmap us'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -58,17 +61,17 @@ alias server='python -m SimpleHTTPServer && firefox http://localhost:8000'
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+#ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump history-substring-search gitignore zsh-syntax-highlighting)
+plugins=(git autojump history-substring-search gitignore)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/nic/android/platform-tools:/home/nic/android/tools:/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/local/go/bin:/usr/local/bin:$PATH"
+export PATH="/home/nic/.gem/ruby/2.3.0/bin:/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/local/bin:/usr/local/go/bin:/usr/lib/go/bin:$PATH"
 export LANG=en_GB.UTF-8
 export GOPATH="/home/nic/go"
 # export MANPATH="/usr/local/man:$MANPATH"
