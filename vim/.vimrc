@@ -16,8 +16,9 @@ Plug 'honza/vim-snippets'
 Plug 'jpythonfold.vim'
 Plug 'luochen1990/rainbow'
 Plug 'nicwest/tslime.vim'
+Plug 'majutsushi/tagbar'
 "Plug 'nicwest/vim-arrow'
-Plug 'nicwest/vim-workman'
+Plug '/home/nic/sideprojects/vim-workman'
 Plug 'nicwest/vim-after-syntax-vim'
 Plug 'nicwest/QQ.vim'
 Plug 'nicwest/cocoa.vim', {'branch': 'syntax-only'}
@@ -80,12 +81,9 @@ endif
 " color scheme
 syntax enable
 set t_Co=256
-"let base16colorspace=256
 set background=dark
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
-"colorscheme base16-ocean
-"colorscheme seti
 
 " }}}
 " Settings {{{
@@ -358,6 +356,29 @@ function! s:desnake() abort
   let @k = l:original
 endfunction
 
+function! s:toggle_header_file(split) abort
+  let l:current = expand("%:e")
+  if l:current == 'm' || l:current == 'c' || l:current == 'cpp'
+    let l:target = expand("%:r") . ".h"
+  else
+    let l:base = expand("%:r")
+    if filereadable(l:base . ".c")
+      let l:target = l:base . ".c"
+    elseif filereadable(l:base . ".cpp")
+      let l:target = l:base . ".cpp"
+    elseif filereadable(l:base . ".m")
+      let l:target = l:base . ".m"
+    else
+      echoerr "NOOOOOOOOOOOOOOOOPE!!!!!!!!!"
+    endif
+  endif
+  if !a:split
+    execute "keepalt keepjumps edit " . l:target
+  else
+    execute "keepalt keepjumps vsplit " . l:target
+  endif
+endfunction
+
 " }}}
 " Commands: {{{
 command! ModeLine :call AppendModeline()
@@ -495,6 +516,10 @@ xnoremap x "_x
 " the only real place that I use the reg for x
 nnoremap cx xp 
 
+" because ZZ and ZQ are on the wrong place on this keyboard
+nnoremap <bar>Q ZQ
+nnoremap <bar><bar> ZZ
+
 "move around windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -521,18 +546,19 @@ nnoremap <silent><c-s><CR> :vert ball<CR>
 nnoremap <c-b> :buffers<CR>:b 
 
 " This feels more logical and I have c-d and c-u for navigation
-nnoremap L $
-nnoremap H ^
-vmap L $
-vmap H ^
-omap L $
-omap H ^
+noremap L $
+noremap H ^
+noremap $ L
+noremap ^ H
 
 "nnoremap j gj
 "nnoremap k gk
 
 "opposite of J
 "nnoremap K a<CR><ESC>k$
+
+nnoremap <silent> <leader>h :call <SID>toggle_header_file(0)<CR>
+nnoremap <silent> <leader>H :call <SID>toggle_header_file(1)<CR>
 
 "NERDTREE: :D
 "nnoremap <C-n> :NERDTreeToggle<CR>
@@ -590,6 +616,7 @@ let g:ycm_min_num_of_chars_for_completion = 2
 "let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_server_python_interpreter = "/usr/bin/python"
 "let 
 " }}}
 " TSlime {{{
@@ -638,7 +665,11 @@ au FileType go nmap <Leader>re <Plug>(go-rename)
 au FileType go nmap <Leader>I <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 " }}}
+" Workman: {{{
+"let g:workman_normal_qwerty = 1
+
 " }}}
+"" }}}
 " Mouse {{{
 
 " scrollwheel speed 

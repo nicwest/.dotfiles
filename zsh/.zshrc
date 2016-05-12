@@ -21,14 +21,17 @@ alias g-="git checkout -"
 alias v="vim"
 alias gmf='git merge --no-ff'
 alias t="tig"
-alias m="vim ~/.muttrc && mutt"
+alias m="pkill -10 offlineimap && journalctl -f"
 alias todo="$TODO_SH"
 alias tdo="$TODO_SH do"
 alias tm="todotxt-machine"
 alias fuck='eval $(thefuck $(fc -ln -1))'
-alias server='python -m SimpleHTTPServer && firefox http://localhost:8000'
+alias server='python2 -m SimpleHTTPServer && firefox http://localhost:8000'
 alias ukkb='setxkbmap gb'
 alias uskb='setxkbmap us'
+alias workman="setxkbmap us -variant workman"
+alias qdrwbj="setxkbmap gb"
+alias weather="curl http://wttr.in/london"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -71,7 +74,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/nic/.gem/ruby/2.3.0/bin:/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/local/bin:/usr/local/go/bin:/usr/lib/go/bin:$PATH"
+export PATH="/home/nic/.gem/ruby/2.3.0/bin:/home/nic/src/go/bin:/home/nic/go/bin:/home/nic/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin:$PATH"
 export LANG=en_GB.UTF-8
 export GOPATH="/home/nic/go"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -216,6 +219,56 @@ howwipped()
     fi
 }
 
+plank()
+{
+    cat << LAYOUT
+Qwerty
+,-----------------------------------------------------------------------------------.
+| Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+|------+------+------+------+------+-------------+------+------+------+------+------|
+| Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+|------+------+------+------+------+------|------+------+------+------+------+------|
+| Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+|------+------+------+------+------+------+------+------+------+------+------+------|
+| Ctrl |  DEL | Alt  | GUI  |Raise |    Space    |Lower | Left | Down |  Up  |Right |
+\`-----------------------------------------------------------------------------------'
+
+ Workman
+,-----------------------------------------------------------------------------------.
+| Tab  |   Q  |   D  |   R  |   W  |   B  |   J  |   F  |   U  |   P  |   ;  | Bksp |
+|------+------+------+------+------+-------------+------+------+------+------+------|
+| Esc  |   A  |   S  |   H  |   T  |   G  |   Y  |   N  |   E  |   O  |   I  |  "   |
+|------+------+------+------+------+------|------+------+------+------+------+------|
+| Shift|   Z  |   X  |   M  |   C  |   V  |   K  |   L  |   ,  |   .  |   /  |Enter |
+|------+------+------+------+------+------+------+------+------+------+------+------|
+| Ctrl |  DEL | Alt  | GUI  |Raise |    Space    |Lower | Left | Down |  Up  |Right |
+\`-----------------------------------------------------------------------------------'
+
+Raise
+,-----------------------------------------------------------------------------------.
+|   \`  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+|------+------+------+------+------+-------------+------+------+------+------+------|
+| Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
+|------+------+------+------+------+------|------+------+------+------+------+------|
+| Shift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |Qwerty|Workmn|Dvorak| Reset|Enter |
+|------+------+------+------+------+------+------+------+------+------+------+------|
+| Crtl |  Ins | Alt  | GUI  |Raise |    Space    |Lower | Next | Vol- | Vol+ | Play |
+\`-----------------------------------------------------------------------------------'
+
+Lower
+,-----------------------------------------------------------------------------------.
+|   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+|------+------+------+------+------+-------------+------+------+------+------+------|
+| Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
+|------+------+------+------+------+------|------+------+------+------+------+------|
+| Shift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |Qwerty|Colemk|Dvorak| Reset|Enter |
+|------+------+------+------+------+------+------+------+------+------+------+------|
+| Ctrl | Caps | Alt  | GUI  |Raise |    Space    |Lower | Next | Vol- | Vol+ | Play |
+\`-----------------------------------------------------------------------------------'
+LAYOUT
+}
+
+
 RPROMPT='%{$fg['red']%}$(howwipped)%{$reset_color%}$(_get_suspended_jobs)'
 #RPROMPT='$(_get_suspended_jobs) %{$fg['cyan']%}$(_get_project_todos)%{$reset_color%}|%{$fg['blue']%}$(_get_non_project_todos)%{$reset_color%}'
 THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
@@ -225,8 +278,6 @@ THEMIS_HOME='/Users/nic/.vim/bundle/vim-themis/'
 
 #BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 #[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
-export DJANGO_SETTINGS_MODULE=services.settings.local
 
 # added by travis gem
 [ -f /home/nic/.travis/travis.sh ] && source /home/nic/.travis/travis.sh
