@@ -32,6 +32,7 @@ alias uskb='setxkbmap us'
 alias workman="setxkbmap us -variant workman"
 alias qdrwbj="setxkbmap gb"
 alias weather="curl http://wttr.in/london"
+alias tunnelbroker="curl -Li https://nicwest:ONFq6iJMr32IcqW@ipv4.tunnelbroker.net/nic/update\?hostname\=302968"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"

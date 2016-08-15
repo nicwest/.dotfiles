@@ -1,3 +1,2 @@
-bind generic y !@sh -c "echo -n %(commit) | xsel --input --clipboard"
-#bind generic y !@sh -c "notify-send %(commit)"
+bind generic y !@sh -c "echo -n %(commit) | xsel --input"
 set main-view = id:true date:short author:true commit-title:true,graph=true,refs=true

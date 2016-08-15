@@ -19,6 +19,7 @@ Plug 'nicwest/tslime.vim'
 Plug 'majutsushi/tagbar'
 "Plug 'nicwest/vim-arrow'
 Plug '/home/nic/sideprojects/vim-workman'
+Plug '/home/nic/sideprojects/vim-requester'
 Plug 'nicwest/vim-after-syntax-vim'
 Plug 'nicwest/QQ.vim'
 Plug 'nicwest/cocoa.vim', {'branch': 'syntax-only'}
